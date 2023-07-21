@@ -1,7 +1,7 @@
 extends Camera2D
 
 
-const SPEED: float = 0.03;
+const SPEED: float = 0.3;
 
 var player: CharacterBody2D
 
