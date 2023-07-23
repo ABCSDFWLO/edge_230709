@@ -442,22 +442,22 @@ parameters/blend_move/blend_amount = 1.0
 parameters/blend_move_dir/blend_amount = 0.0
 
 [node name="Body" type="Node2D" parent="Player"]
-position = Vector2(-10, 4.34394)
+position = Vector2(-10, 0.441054)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Body"]
 texture = ExtResource("5_secsx")
 
 [node name="Foot_0" type="Node2D" parent="Player"]
-position = Vector2(-24.4176, 166.546)
+position = Vector2(-79.5212, 155.216)
+rotation = 0.0998114
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Foot_0"]
 texture = ExtResource("6_yiw0r")
 
 [node name="Foot_1" type="Node2D" parent="Player"]
-position = Vector2(43.9173, 120.554)
-rotation = 0.482913
+position = Vector2(76.0308, 160.543)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Foot_1"]

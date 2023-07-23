@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6qk7kxmullej"]
+[gd_scene load_steps=9 format=3 uid="uid://c6qk7kxmullej"]
 
 [ext_resource type="Texture2D" uid="uid://bx0py1if67buj" path="res://Img/particle.png" id="2_1rd3o"]
+[ext_resource type="Script" path="res://_Scripts/Title.gd" id="2_pe258"]
 [ext_resource type="Texture2D" uid="uid://bm51v36rx5kte" path="res://Img/background.png" id="3_0j276"]
 
 [sub_resource type="Image" id="Image_2k4d8"]
@@ -68,6 +69,7 @@ gravity = Vector2(0, 0)
 scale_amount_max = 3.0
 scale_amount_curve = SubResource("Curve_bhgon")
 color_ramp = SubResource("Gradient_7kwj2")
+script = ExtResource("2_pe258")
 
 [node name="Background" type="Sprite2D" parent="Cam_main"]
 scale = Vector2(10, 3)

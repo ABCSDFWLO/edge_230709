@@ -1,40 +1,28 @@
 extends CharacterBody2D
 
 
-const SPEED = 1500.0
-const JUMP_VELOCITY = -4000.0
-const EPSILON = 1
-const JUMP_ABILITY=3
-
-const BLEND_X = 50
-const BLEND_Y = 2000
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var jumped=0
 
-var anim_tree : AnimationTree
-var anim_player : AnimationPlayer
 
-func _ready():
-	anim_tree=$AnimationTree
-	anim_player=$player_anim
+
+
 
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	else:
-		jumped=0
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or jumped<JUMP_ABILITY):
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		jumped+=1
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("left", "right")
+	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -42,9 +30,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _process(delta):
-	animation()
-		
+
 func animation():
 	anim_tree.set("parameters/blend_move_dir/blend_amount",clamp(velocity.x/BLEND_X,-0.5,0.5)+0.5)
 	anim_tree.set("parameters/blend_move/blend_amount",clamp(abs(velocity.x/BLEND_X),0,1))
