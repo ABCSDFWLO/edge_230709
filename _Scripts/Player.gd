@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 
 const SPEED = 1500.0
-const JUMP_VELOCITY = -4000.0
+const JUMP_VELOCITY = -5000.0
 const EPSILON = 1
 const JUMP_ABILITY=3
 
 const BLEND_X = 50
-const BLEND_Y = 1500
-const BLEND_Y_DELTA = 100 
+const BLEND_Y = 2500
+const BLEND_Y_DELTA = 1500
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -50,8 +50,8 @@ func animation():
 		anim_tree.set("parameters/blend_fall/blend_amount",0)
 		anim_tree.set("parameters/blend_jump/blend_amount",0)
 	elif (velocity.y>0):
-		anim_tree.set("parameters/blend_fall/blend_amount",clamp(velocity.y/BLEND_Y,0,1))
+		anim_tree.set("parameters/blend_fall/blend_amount",clamp((velocity.y-BLEND_Y_DELTA)/BLEND_Y,0,1))
 		anim_tree.set("parameters/blend_jump/blend_amount",0)
 	else:
-		anim_tree.set("parameters/blend_jump/blend_amount",clamp(-velocity.y/BLEND_Y,0,1))
+		anim_tree.set("parameters/blend_jump/blend_amount",clamp((-velocity.y-BLEND_Y_DELTA)/BLEND_Y,0,1))
 		anim_tree.set("parameters/blend_fall/blend_amount",0)
