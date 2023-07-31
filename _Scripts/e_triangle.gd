@@ -4,8 +4,8 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 const BLEND_X = 50
-const BLEND_Y = 1500
-const BLEND_Y_DELTA = 500 #한칸 떨어질 때의 달리기 모션 끊김을 방지
+const BLEND_Y = 2500
+const BLEND_Y_DELTA = 1500
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -22,13 +22,24 @@ var anim_tree : AnimationTree
 var anim_player : AnimationPlayer
 var sensor_left : Area2D
 var sensor_right : Area2D
+var sensor_upper : Area2D
+var sensor_left_floor : RayCast2D
+var sensor_right_floor : RayCast2D
+
 
 func _ready():
-	player=get_node("/root/player")
+	player=get_node("/root/Node2D/Player")
 	anim_tree=$AnimationTree
 	anim_player=$AnimationPlayer
 	sensor_left=$Sensor_left
 	sensor_right=$Sensor_right
+	sensor_upper=$Sensor_upper
+	sensor_left_floor=$Sensor_left_floor
+	sensor_right_floor=$Sensor_right_floor
+
+func _process(delta):
+	print_debug(sensor_left_floor.get_collider(),sensor_right_floor.get_collider())
+	print_debug(sensor_left_floor.is_colliding())
 
 func _physics_process(delta):
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://duoteqfhygif4"]
+[gd_scene load_steps=22 format=3 uid="uid://duoteqfhygif4"]
 
 [ext_resource type="Script" path="res://_Scripts/e_triangle.gd" id="1_hs28e"]
 [ext_resource type="Texture2D" uid="uid://bxsdyixbog6r" path="res://Img/enemy/triangle/triangle_body.png" id="2_eotsq"]
@@ -28,7 +28,7 @@ animation = &"move_left"
 animation = &"move_right"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1o1y2"]
-graph_offset = Vector2(-571.553, 66.4614)
+graph_offset = Vector2(-501.627, 146.364)
 nodes/blend_fall/node = SubResource("AnimationNodeBlend2_l7ruw")
 nodes/blend_fall/position = Vector2(240, 180)
 nodes/blend_jump/node = SubResource("AnimationNodeBlend2_s751v")
@@ -49,9 +49,6 @@ nodes/move_right/node = SubResource("AnimationNodeAnimation_mdyv5")
 nodes/move_right/position = Vector2(-500, 300)
 nodes/output/position = Vector2(400, 180)
 node_connections = [&"output", 0, &"blend_fall", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"move_left", &"blend_move_dir", 1, &"move_right"]
-
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_fbr0u"]
-points = PackedVector2Array(0, -60, 30, 0, -30, 0)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6sxxm"]
 radius = 90.0
@@ -377,13 +374,14 @@ metadata/_edit_group_ = true
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_1o1y2")
 anim_player = NodePath("../AnimationPlayer")
+active = true
 parameters/blend_fall/blend_amount = 0.0
 parameters/blend_jump/blend_amount = 0.0
 parameters/blend_move/blend_amount = 0.0
 parameters/blend_move_dir/blend_amount = 1.0
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 15.7925)
+position = Vector2(0, 0.0245747)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -391,9 +389,8 @@ texture = ExtResource("2_eotsq")
 
 [node name="Atk_0" type="Area2D" parent="Body"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Atk_0"]
-shape = SubResource("ConvexPolygonShape2D_fbr0u")
-debug_color = Color(0.462745, 0.592157, 0, 0.419608)
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Body/Atk_0"]
+polygon = PackedVector2Array(-40, 0, 40, 0, 0, -80)
 
 [node name="Foot_0" type="Node2D" parent="."]
 position = Vector2(-80, 160)
@@ -412,7 +409,7 @@ texture = ExtResource("3_21oqf")
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 40)
 shape = SubResource("CapsuleShape2D_6sxxm")
-debug_color = Color(0, 0.6, 0.701961, 0.133333)
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Foot_0")
@@ -429,7 +426,7 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor_left"]
 position = Vector2(-1000, 0)
 shape = SubResource("RectangleShape2D_fyuw2")
-debug_color = Color(0, 0.6, 0.701961, 0.133333)
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right" type="Area2D" parent="."]
 monitorable = false
@@ -438,4 +435,19 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor_right"]
 position = Vector2(1000, 0)
 shape = SubResource("RectangleShape2D_fyuw2")
-debug_color = Color(0, 0.6, 0.701961, 0.133333)
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+
+[node name="Sensor_upper" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sensor_upper"]
+polygon = PackedVector2Array(-600, -1200, 600, -1200, 100, -100, -100, -100)
+
+[node name="Sensor_left_floor" type="RayCast2D" parent="."]
+position = Vector2(-100, 0)
+target_position = Vector2(0, 220)
+collide_with_areas = true
+
+[node name="Sensor_right_floor" type="RayCast2D" parent="."]
+position = Vector2(100, 0)
+target_position = Vector2(0, 220)
+collide_with_areas = true
