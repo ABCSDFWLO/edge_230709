@@ -7,11 +7,9 @@ const BLEND_X = 50
 const BLEND_Y = 2500
 const BLEND_Y_DELTA = 1500
 
+const ATTACKABLE_RANGE = 300
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-var player : CharacterBody2D
-
-var player_distance : Vector2
 
 enum {
 	IDLE0,
@@ -30,17 +28,21 @@ enum {
 }
 var action0 :int
 var action1 :int
+var delay:int
 
 var Sensor_right_floor
 
 var anim_tree : AnimationTree
 var anim_player : AnimationPlayer
-#var sensor_left : Area2D
-#var sensor_right : Area2D
-#var sensor_upper : Area2D
-#var sensor_left_floor : Area2D
-#var sensor_right_floor : Area2D
+var sensor_left : Area2D
+var sensor_right : Area2D
+var sensor_upper : Area2D
+var sensor_left_floor : Area2D
+var sensor_right_floor : Area2D
 
+var player : CharacterBody2D
+
+var player_distance : float
 var s_l:bool
 var s_r:bool
 var s_u:bool
@@ -51,18 +53,16 @@ func _ready():
 	player=get_node("/root/Node2D/Player")
 	anim_tree=$AnimationTree
 	anim_player=$AnimationPlayer
-	#sensor_left=$Sensor_left
-	#sensor_right=$Sensor_right
-	#sensor_upper=$Sensor_upper
-	#sensor_left_floor=$Sensor_left_floor
-	#sensor_right_floor=$Sensor_right_floor
+	sensor_left=$Sensor_left
+	sensor_right=$Sensor_right
+	sensor_upper=$Sensor_upper
+	sensor_left_floor=$Sensor_left_floor
+	sensor_right_floor=$Sensor_right_floor
 
 func _process(delta):
-	#print_debug(sensor_left_floor.has_overlapping_areas(),sensor_left_floor.has_overlapping_bodies())
 	control()
 	animation()
-	pass
-
+	
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -90,20 +90,60 @@ func animation():
 		anim_tree.set("parameters/blend_fall/blend_amount",0)
 
 func control():
-	if action0==IDLE0:
-		action0=MOVE_LEFT
-	if action0==MOVE_LEFT and (not s_l_f or is_on_wall()):
+	if not (action0==ATTACK_LEFT_PREDELAY
+			or action0==ATTACK_RIGHT_PREDELAY
+			or action0==ATTACK_LEFT_PRODELAY
+			or action0==ATTACK_RIGHT_PRODELAY):
+		
+		if s_l or s_r or s_u:
+			player_distance=player.transform.x.x-transform.x.x
+			if player_distance<ATTACKABLE_RANGE:
+				action0= ATTACK_RIGHT_PREDELAY if player_distance>0 else ATTACK_LEFT_PREDELAY
+			else:
+				action0= MOVE_RIGHT if player_distance>0 else MOVE_LEFT
+		else:
+			player_distance=0
+		
+		if action0==IDLE0:
+			action0=MOVE_LEFT
+	
+	
+	elif action0==MOVE_LEFT and (not s_l_f or is_on_wall()):
 		action0=MOVE_RIGHT
 	elif action0==MOVE_RIGHT and (not s_r_f or is_on_wall()):
 		action0=MOVE_LEFT
-	pass
-
-
-func _on_sensor_right_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	if body is TileMap:
-		s_r_f=true
-
-
+	
 func _on_sensor_left_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body is TileMap:
 		s_l_f=true
+func _on_sensor_left_floor_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	if body is TileMap:
+		s_l_f=false
+func _on_sensor_right_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body is TileMap:
+		s_r_f=true
+func _on_sensor_right_floor_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	if body is TileMap:
+		s_r_f=false
+func _on_sensor_upper_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body == player:
+		s_u=true
+func _on_sensor_upper_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	if body == player:
+		s_u=false
+func _on_sensor_left_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body == player:
+		s_l=true
+func _on_sensor_left_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	if body == player:
+		s_l=false
+func _on_sensor_right_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body == player:
+		s_r=true
+func _on_sensor_right_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+	if body == player:
+		s_r=false
+
+func dist(a:Vector2,b:Vector2,):
+	var dx=a.x-b.x
+	var dy=a.y-b.y

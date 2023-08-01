@@ -385,7 +385,7 @@ parameters/blend_move/blend_amount = 0.0
 parameters/blend_move_dir/blend_amount = 1.0
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 5.67298)
+position = Vector2(0, 7.44484)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -460,5 +460,13 @@ position = Vector2(200, 200)
 shape = SubResource("RectangleShape2D_j17ev")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
+[connection signal="body_shape_entered" from="Sensor_left" to="." method="_on_sensor_left_body_shape_entered"]
+[connection signal="body_shape_exited" from="Sensor_left" to="." method="_on_sensor_left_body_shape_exited"]
+[connection signal="body_shape_entered" from="Sensor_right" to="." method="_on_sensor_right_body_shape_entered"]
+[connection signal="body_shape_exited" from="Sensor_right" to="." method="_on_sensor_right_body_shape_exited"]
+[connection signal="body_shape_entered" from="Sensor_upper" to="." method="_on_sensor_upper_body_shape_entered"]
+[connection signal="body_shape_exited" from="Sensor_upper" to="." method="_on_sensor_upper_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_left_floor" to="." method="_on_sensor_left_floor_body_shape_entered"]
+[connection signal="body_shape_exited" from="Sensor_left_floor" to="." method="_on_sensor_left_floor_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_right_floor" to="." method="_on_sensor_right_floor_body_shape_entered"]
+[connection signal="body_shape_exited" from="Sensor_right_floor" to="." method="_on_sensor_right_floor_body_shape_exited"]
