@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 1000.0
+const JUMP_VELOCITY = -5000.0
 
 const BLEND_X = 50
 const BLEND_Y = 2500
@@ -11,38 +11,70 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var player : CharacterBody2D
 
-var state = {
-	#거리 / 방향 / 
+var player_distance : Vector2
+
+enum {
+	IDLE0,
+	MOVE_LEFT,
+	MOVE_RIGHT,
+	ATTACK_LEFT_PREDELAY,
+	ATTACK_LEFT,
+	ATTACK_LEFT_PRODELAY,
+	ATTACK_RIGHT_PREDELAY,
+	ATTACK_RIGHT,
+	ATTACK_RIGHT_PRODELAY
 }
-var flag = {
-	#세세한 행동의 제한 ex) action중 이동 제한
+enum {
+	IDLE1,
+	JUMP
 }
+var action0 :int
+var action1 :int
+
+var Sensor_right_floor
 
 var anim_tree : AnimationTree
 var anim_player : AnimationPlayer
-var sensor_left : Area2D
-var sensor_right : Area2D
-var sensor_upper : Area2D
-var sensor_left_floor : RayCast2D
-var sensor_right_floor : RayCast2D
+#var sensor_left : Area2D
+#var sensor_right : Area2D
+#var sensor_upper : Area2D
+#var sensor_left_floor : Area2D
+#var sensor_right_floor : Area2D
 
+var s_l:bool
+var s_r:bool
+var s_u:bool
+var s_l_f:bool
+var s_r_f:bool
 
 func _ready():
 	player=get_node("/root/Node2D/Player")
 	anim_tree=$AnimationTree
 	anim_player=$AnimationPlayer
-	sensor_left=$Sensor_left
-	sensor_right=$Sensor_right
-	sensor_upper=$Sensor_upper
-	sensor_left_floor=$Sensor_left_floor
-	sensor_right_floor=$Sensor_right_floor
+	#sensor_left=$Sensor_left
+	#sensor_right=$Sensor_right
+	#sensor_upper=$Sensor_upper
+	#sensor_left_floor=$Sensor_left_floor
+	#sensor_right_floor=$Sensor_right_floor
 
 func _process(delta):
-	print_debug(sensor_left_floor.get_collider(),sensor_right_floor.get_collider())
-	print_debug(sensor_left_floor.is_colliding())
+	#print_debug(sensor_left_floor.has_overlapping_areas(),sensor_left_floor.has_overlapping_bodies())
+	control()
+	animation()
+	pass
 
 func _physics_process(delta):
-	pass
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	if action1 == JUMP and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+	if action0 == MOVE_LEFT :
+		velocity.x = -SPEED
+	elif action0 == MOVE_RIGHT:
+		velocity.x = SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+	move_and_slide()
 
 func animation():
 	anim_tree.set("parameters/blend_move_dir/blend_amount",clamp(velocity.x/BLEND_X,-0.5,0.5)+0.5)
@@ -58,16 +90,20 @@ func animation():
 		anim_tree.set("parameters/blend_fall/blend_amount",0)
 
 func control():
+	if action0==IDLE0:
+		action0=MOVE_LEFT
+	if action0==MOVE_LEFT and (not s_l_f or is_on_wall()):
+		action0=MOVE_RIGHT
+	elif action0==MOVE_RIGHT and (not s_r_f or is_on_wall()):
+		action0=MOVE_LEFT
 	pass
-	
-func control_physics(delta):
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	var direction
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	move_and_slide()
+
+
+func _on_sensor_right_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body is TileMap:
+		s_r_f=true
+
+
+func _on_sensor_left_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body is TileMap:
+		s_l_f=true

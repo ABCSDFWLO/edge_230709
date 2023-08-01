@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://duoteqfhygif4"]
+[gd_scene load_steps=24 format=3 uid="uid://duoteqfhygif4"]
 
 [ext_resource type="Script" path="res://_Scripts/e_triangle.gd" id="1_hs28e"]
 [ext_resource type="Texture2D" uid="uid://bxsdyixbog6r" path="res://Img/enemy/triangle/triangle_body.png" id="2_eotsq"]
@@ -367,6 +367,10 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyuw2"]
 size = Vector2(2000, 200)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8hkk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j17ev"]
+
 [node name="e_triangle" type="CharacterBody2D"]
 script = ExtResource("1_hs28e")
 metadata/_edit_group_ = true
@@ -381,7 +385,7 @@ parameters/blend_move/blend_amount = 0.0
 parameters/blend_move_dir/blend_amount = 1.0
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 0.0245747)
+position = Vector2(0, 5.67298)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -442,12 +446,19 @@ debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sensor_upper"]
 polygon = PackedVector2Array(-600, -1200, 600, -1200, 100, -100, -100, -100)
 
-[node name="Sensor_left_floor" type="RayCast2D" parent="."]
-position = Vector2(-100, 0)
-target_position = Vector2(0, 220)
-collide_with_areas = true
+[node name="Sensor_left_floor" type="Area2D" parent="."]
+position = Vector2(-200, 200)
 
-[node name="Sensor_right_floor" type="RayCast2D" parent="."]
-position = Vector2(100, 0)
-target_position = Vector2(0, 220)
-collide_with_areas = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor_left_floor"]
+shape = SubResource("RectangleShape2D_m8hkk")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+
+[node name="Sensor_right_floor" type="Area2D" parent="."]
+position = Vector2(200, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor_right_floor"]
+shape = SubResource("RectangleShape2D_j17ev")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+
+[connection signal="body_shape_entered" from="Sensor_left_floor" to="." method="_on_sensor_left_floor_body_shape_entered"]
+[connection signal="body_shape_entered" from="Sensor_right_floor" to="." method="_on_sensor_right_floor_body_shape_entered"]
