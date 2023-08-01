@@ -1,8 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://duoteqfhygif4"]
+[gd_scene load_steps=30 format=3 uid="uid://duoteqfhygif4"]
 
 [ext_resource type="Script" path="res://_Scripts/e_triangle.gd" id="1_hs28e"]
 [ext_resource type="Texture2D" uid="uid://bxsdyixbog6r" path="res://Img/enemy/triangle/triangle_body.png" id="2_eotsq"]
 [ext_resource type="Texture2D" uid="uid://n6kln4ltpkiw" path="res://Img/enemy/triangle/triangle_foot.png" id="3_21oqf"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_71v06"]
+animation = &"attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pdov3"]
+animation = &"attack_right"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_7q55n"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l7ruw"]
 
@@ -27,8 +35,18 @@ animation = &"move_left"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mdyv5"]
 animation = &"move_right"
 
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_s1euo"]
+filter_enabled = true
+filters = ["../Body:position", "../Body:rotation"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1o1y2"]
-graph_offset = Vector2(-501.627, 146.364)
+graph_offset = Vector2(-405.811, 136.285)
+nodes/attack_left/node = SubResource("AnimationNodeAnimation_71v06")
+nodes/attack_left/position = Vector2(240, 380)
+nodes/attack_right/node = SubResource("AnimationNodeAnimation_pdov3")
+nodes/attack_right/position = Vector2(240, 500)
+nodes/blend_attack_dir/node = SubResource("AnimationNodeBlend2_7q55n")
+nodes/blend_attack_dir/position = Vector2(400, 260)
 nodes/blend_fall/node = SubResource("AnimationNodeBlend2_l7ruw")
 nodes/blend_fall/position = Vector2(240, 180)
 nodes/blend_jump/node = SubResource("AnimationNodeBlend2_s751v")
@@ -47,8 +65,10 @@ nodes/move_left/node = SubResource("AnimationNodeAnimation_bu4sy")
 nodes/move_left/position = Vector2(-500, 180)
 nodes/move_right/node = SubResource("AnimationNodeAnimation_mdyv5")
 nodes/move_right/position = Vector2(-500, 300)
-nodes/output/position = Vector2(400, 180)
-node_connections = [&"output", 0, &"blend_fall", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"move_left", &"blend_move_dir", 1, &"move_right"]
+nodes/output/position = Vector2(740, 180)
+nodes/shot_attack/node = SubResource("AnimationNodeOneShot_s1euo")
+nodes/shot_attack/position = Vector2(580, 180)
+node_connections = [&"output", 0, &"shot_attack", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"move_left", &"blend_move_dir", 1, &"move_right", &"blend_attack_dir", 0, &"attack_left", &"blend_attack_dir", 1, &"attack_right", &"shot_attack", 0, &"blend_fall", &"shot_attack", 1, &"blend_attack_dir"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6sxxm"]
 radius = 90.0
@@ -355,8 +375,64 @@ tracks/4/keys = {
 "values": [0.0, 0.0, -0.523599, -0.436332, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_esaag"]
+resource_name = "attack_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0.0714219), Vector2(0, 0), Vector2(-300, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Body:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -1.5708, -1.5708, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_dvtnp"]
+resource_name = "attack_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0.0714219), Vector2(0, 0), Vector2(300, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Body:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.5708, 1.5708, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn8b6"]
 _data = {
+"attack_left": SubResource("Animation_esaag"),
+"attack_right": SubResource("Animation_dvtnp"),
 "fall": SubResource("Animation_q4j18"),
 "idle": SubResource("Animation_ea5oe"),
 "jump": SubResource("Animation_2t81t"),
@@ -372,6 +448,8 @@ size = Vector2(2000, 200)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j17ev"]
 
 [node name="e_triangle" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 16
 script = ExtResource("1_hs28e")
 metadata/_edit_group_ = true
 
@@ -379,25 +457,31 @@ metadata/_edit_group_ = true
 tree_root = SubResource("AnimationNodeBlendTree_1o1y2")
 anim_player = NodePath("../AnimationPlayer")
 active = true
+parameters/blend_attack_dir/blend_amount = 0
 parameters/blend_fall/blend_amount = 0.0
-parameters/blend_jump/blend_amount = 0.0
-parameters/blend_move/blend_amount = 0.0
+parameters/blend_jump/blend_amount = 1.0
+parameters/blend_move/blend_amount = 1.0
 parameters/blend_move_dir/blend_amount = 1.0
+parameters/shot_attack/active = false
+parameters/shot_attack/internal_active = false
+parameters/shot_attack/request = 0
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 7.44484)
+position = Vector2(0, -30)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
 texture = ExtResource("2_eotsq")
 
 [node name="Atk_0" type="Area2D" parent="Body"]
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Body/Atk_0"]
 polygon = PackedVector2Array(-40, 0, 40, 0, 0, -80)
 
 [node name="Foot_0" type="Node2D" parent="."]
 position = Vector2(-80, 160)
+rotation = -1.0472
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Foot_0"]
@@ -405,6 +489,7 @@ texture = ExtResource("3_21oqf")
 
 [node name="Foot_1" type="Node2D" parent="."]
 position = Vector2(80, 160)
+rotation = 1.0472
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Foot_1"]
@@ -424,6 +509,7 @@ libraries = {
 }
 
 [node name="Sensor_left" type="Area2D" parent="."]
+collision_layer = 4
 monitorable = false
 metadata/_edit_group_ = true
 
@@ -433,6 +519,7 @@ shape = SubResource("RectangleShape2D_fyuw2")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right" type="Area2D" parent="."]
+collision_layer = 4
 monitorable = false
 metadata/_edit_group_ = true
 
@@ -442,12 +529,15 @@ shape = SubResource("RectangleShape2D_fyuw2")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_upper" type="Area2D" parent="."]
+collision_layer = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sensor_upper"]
 polygon = PackedVector2Array(-600, -1200, 600, -1200, 100, -100, -100, -100)
 
 [node name="Sensor_left_floor" type="Area2D" parent="."]
 position = Vector2(-200, 200)
+collision_layer = 4
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor_left_floor"]
 shape = SubResource("RectangleShape2D_m8hkk")
@@ -455,18 +545,18 @@ debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right_floor" type="Area2D" parent="."]
 position = Vector2(200, 200)
+collision_layer = 4
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensor_right_floor"]
 shape = SubResource("RectangleShape2D_j17ev")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
+[connection signal="shot_attack" from="." to="." method="animation_shot_attack"]
+[connection signal="body_entered" from="Body/Atk_0" to="." method="_on_atk_0_body_entered"]
 [connection signal="body_shape_entered" from="Sensor_left" to="." method="_on_sensor_left_body_shape_entered"]
 [connection signal="body_shape_exited" from="Sensor_left" to="." method="_on_sensor_left_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_right" to="." method="_on_sensor_right_body_shape_entered"]
 [connection signal="body_shape_exited" from="Sensor_right" to="." method="_on_sensor_right_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_upper" to="." method="_on_sensor_upper_body_shape_entered"]
 [connection signal="body_shape_exited" from="Sensor_upper" to="." method="_on_sensor_upper_body_shape_exited"]
-[connection signal="body_shape_entered" from="Sensor_left_floor" to="." method="_on_sensor_left_floor_body_shape_entered"]
-[connection signal="body_shape_exited" from="Sensor_left_floor" to="." method="_on_sensor_left_floor_body_shape_exited"]
-[connection signal="body_shape_entered" from="Sensor_right_floor" to="." method="_on_sensor_right_floor_body_shape_entered"]
-[connection signal="body_shape_exited" from="Sensor_right_floor" to="." method="_on_sensor_right_floor_body_shape_exited"]

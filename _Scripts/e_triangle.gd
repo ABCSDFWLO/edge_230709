@@ -49,6 +49,8 @@ var s_u:bool
 var s_l_f:bool
 var s_r_f:bool
 
+signal shot_attack()
+
 func _ready():
 	player=get_node("/root/Node2D/Player")
 	anim_tree=$AnimationTree
@@ -64,6 +66,9 @@ func _process(delta):
 	animation()
 	
 func _physics_process(delta):
+	s_l_f=true if sensor_left_floor.has_overlapping_bodies() and sensor_left_floor.get_overlapping_bodies()[0] is TileMap else false
+	s_r_f=true if sensor_right_floor.has_overlapping_bodies() and sensor_right_floor.get_overlapping_bodies()[0] is TileMap else false
+	
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	if action1 == JUMP and is_on_floor():
@@ -79,6 +84,10 @@ func _physics_process(delta):
 func animation():
 	anim_tree.set("parameters/blend_move_dir/blend_amount",clamp(velocity.x/BLEND_X,-0.5,0.5)+0.5)
 	anim_tree.set("parameters/blend_move/blend_amount",clamp(abs(velocity.x/BLEND_X),0,1))
+	if action0==ATTACK_LEFT:
+		anim_tree.set("parameters/blend_attack_dir/blend_amount",0)
+	elif action0==ATTACK_RIGHT:
+		anim_tree.set("parameters/blend_attack_dir/blend_amount",1)
 	if (velocity.y<BLEND_Y_DELTA and velocity.y>-BLEND_Y_DELTA):
 		anim_tree.set("parameters/blend_fall/blend_amount",0)
 		anim_tree.set("parameters/blend_jump/blend_amount",0)
@@ -89,42 +98,45 @@ func animation():
 		anim_tree.set("parameters/blend_jump/blend_amount",clamp(-velocity.y/BLEND_Y,0,1))
 		anim_tree.set("parameters/blend_fall/blend_amount",0)
 
+func animation_shot_attack():
+	anim_tree.set("parameters/shot_attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
 func control():
 	if not (action0==ATTACK_LEFT_PREDELAY
 			or action0==ATTACK_RIGHT_PREDELAY
 			or action0==ATTACK_LEFT_PRODELAY
 			or action0==ATTACK_RIGHT_PRODELAY):
-		
 		if s_l or s_r or s_u:
 			player_distance=player.transform.x.x-transform.x.x
 			if player_distance<ATTACKABLE_RANGE:
-				action0= ATTACK_RIGHT_PREDELAY if player_distance>0 else ATTACK_LEFT_PREDELAY
+				action0= ATTACK_RIGHT if player_distance>0 else ATTACK_LEFT
+				emit_signal("shot_attack")
 			else:
 				action0= MOVE_RIGHT if player_distance>0 else MOVE_LEFT
-		else:
-			player_distance=0
 		
-		if action0==IDLE0:
-			action0=MOVE_LEFT
-	
-	
+	if action0==IDLE0:
+		action0=MOVE_LEFT
 	elif action0==MOVE_LEFT and (not s_l_f or is_on_wall()):
 		action0=MOVE_RIGHT
 	elif action0==MOVE_RIGHT and (not s_r_f or is_on_wall()):
 		action0=MOVE_LEFT
 	
-func _on_sensor_left_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	if body is TileMap:
-		s_l_f=true
-func _on_sensor_left_floor_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
-	if body is TileMap:
-		s_l_f=false
-func _on_sensor_right_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	if body is TileMap:
-		s_r_f=true
-func _on_sensor_right_floor_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
-	if body is TileMap:
-		s_r_f=false
+	
+	
+	
+	
+#func _on_sensor_left_floor_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+#	if body is TileMap:
+#		s_l_f=false
+#func _on_sensor_left_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+#	if body is TileMap:
+#		s_l_f=true
+#func _on_sensor_right_floor_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
+#	if body is TileMap:
+#		s_r_f=false
+#func _on_sensor_right_floor_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+#	if body is TileMap:
+#		s_r_f=true
 func _on_sensor_upper_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body == player:
 		s_u=true
@@ -144,6 +156,6 @@ func _on_sensor_right_body_shape_exited(body_rid, body, body_shape_index, local_
 	if body == player:
 		s_r=false
 
-func dist(a:Vector2,b:Vector2,):
-	var dx=a.x-b.x
-	var dy=a.y-b.y
+
+func _on_atk_0_body_entered(body):
+	print_debug("아야")
