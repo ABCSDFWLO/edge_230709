@@ -10,7 +10,6 @@ const BLEND_X = 50
 const BLEND_Y = 2500
 const BLEND_Y_DELTA = 1500
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumped=0
 
@@ -39,7 +38,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _process(delta):
+func _process(_delta):
 	animation()
 		
 func animation():
