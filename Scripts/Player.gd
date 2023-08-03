@@ -13,12 +13,6 @@ const BLEND_Y_DELTA = 1500
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumped=0
 
-var anim_tree : AnimationTree
-var anim_player : AnimationPlayer
-
-func _ready():
-	anim_tree=$AnimationTree
-	anim_player=$player_anim
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -42,15 +36,15 @@ func _process(_delta):
 	animation()
 		
 func animation():
-	anim_tree.set("parameters/blend_move_dir/blend_amount",clamp(velocity.x/BLEND_X,-0.5,0.5)+0.5)
-	anim_tree.set("parameters/blend_move/blend_amount",clamp(abs(velocity.x/BLEND_X),0,1))
+	$AnimationTree.set("parameters/blend_move_dir/blend_amount",clamp(velocity.x/BLEND_X,-0.5,0.5)+0.5)
+	$AnimationTree.set("parameters/blend_move/blend_amount",clamp(abs(velocity.x/BLEND_X),0,1))
 	
 	if (velocity.y<BLEND_Y_DELTA and velocity.y>-BLEND_Y_DELTA):
-		anim_tree.set("parameters/blend_fall/blend_amount",0)
-		anim_tree.set("parameters/blend_jump/blend_amount",0)
+		$AnimationTree.set("parameters/blend_fall/blend_amount",0)
+		$AnimationTree.set("parameters/blend_jump/blend_amount",0)
 	elif (velocity.y>0):
-		anim_tree.set("parameters/blend_fall/blend_amount",clamp((velocity.y-BLEND_Y_DELTA)/BLEND_Y,0,1))
-		anim_tree.set("parameters/blend_jump/blend_amount",0)
+		$AnimationTree.set("parameters/blend_fall/blend_amount",clamp((velocity.y-BLEND_Y_DELTA)/BLEND_Y,0,1))
+		$AnimationTree.set("parameters/blend_jump/blend_amount",0)
 	else:
-		anim_tree.set("parameters/blend_jump/blend_amount",clamp((-velocity.y-BLEND_Y_DELTA)/BLEND_Y,0,1))
-		anim_tree.set("parameters/blend_fall/blend_amount",0)
+		$AnimationTree.set("parameters/blend_jump/blend_amount",clamp((-velocity.y-BLEND_Y_DELTA)/BLEND_Y,0,1))
+		$AnimationTree.set("parameters/blend_fall/blend_amount",0)
