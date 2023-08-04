@@ -83,7 +83,9 @@ func control():
 		actions["x_dir"]=-1
 	elif actions["x_dir"]==0:
 		actions["x_dir"]=-1
-		
+
+
+
 func _on_animation_tree_animation_finished(anim_name):
 	if anim_name=="attack_left" or anim_name=="attack_right":
 		actions["action0"]=0

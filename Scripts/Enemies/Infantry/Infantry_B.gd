@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 1000.0
+const SPEED = 600.0
 const JUMP_VELOCITY = -4000.0
 
 const BLEND_X = 50
@@ -21,7 +21,9 @@ var senses = {
 	"left_floor"=false,
 	"right_floor"=false,
 	"action0_left"=false,
-	"action0_right"=false
+	"action0_right"=false,
+	"left_shield"=false,
+	"right_shield"=false
 }
 var actions = {
 	"x_dir"=0, # -1:left / 0:idle / 1:right
@@ -41,8 +43,6 @@ func _physics_process(delta):
 	senses["right_floor"]=true if $Sensor_right_floor.has_overlapping_bodies() and $Sensor_right_floor.get_overlapping_bodies()[0] is TileMap else false
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	if senses["upper"] and is_on_floor() and actions["action0"]==0:
-		velocity.y = JUMP_VELOCITY
 	if actions["x_dir"] == 0 or actions["action0"]!=0:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	else:
@@ -73,6 +73,10 @@ func control():
 	elif senses["action0_right"] and actions["action0"]==0 and is_on_floor():
 		actions["action0"]=1
 		$AnimationTree.set("parameters/shot_attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	elif senses["left_shield"]:
+		actions["x_dir"]=0
+	elif senses["right_shield"]:
+		actions["x_dir"]=0
 	elif senses["left"]:
 		actions["x_dir"]=-1 if senses["left_floor"] else 0
 	elif senses["right"]:
