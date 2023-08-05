@@ -13,6 +13,11 @@ const BLEND_Y_DELTA = 1500
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumped=0
 
+var actions = [
+	{"left":false,"right":false},
+	{},
+	{}
+]
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -40,6 +45,22 @@ func animation():
 	$AnimationTree.set("parameters/blend_move_dir/blend_amount",clamp(velocity.x/BLEND_X,-0.5,0.5)+0.5)
 	$AnimationTree.set("parameters/blend_move/blend_amount",clamp(abs(velocity.x/BLEND_X),0,1))
 	
+	var action_i=-1
+	for i in actions:
+		for j in i:
+			if j:
+				action_i=actions.find(i)
+				break
+		if action_i!=1:
+			break
+	
+	for i in actions.size():
+		if i <= action_i:
+			$AnimationTree.set("parameters/"+i+"blend_amount",1)
+		else:
+			$AnimationTree.set("parameters/"+i+"blend_amount",0)
+	
+		$AnimationTree.set("parameters/blend_attack_dir/blend_amount",1)
 	if (velocity.y<BLEND_Y_DELTA and velocity.y>-BLEND_Y_DELTA):
 		$AnimationTree.set("parameters/blend_fall/blend_amount",0)
 		$AnimationTree.set("parameters/blend_jump/blend_amount",0)
