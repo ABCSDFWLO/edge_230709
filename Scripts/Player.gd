@@ -51,16 +51,18 @@ func animation():
 			if j:
 				action_i=actions.find(i)
 				break
-		if action_i!=1:
+		if action_i!=-1:
 			break
-	
-	for i in actions.size():
-		if i <= action_i:
-			$AnimationTree.set("parameters/"+i+"blend_amount",1)
-		else:
-			$AnimationTree.set("parameters/"+i+"blend_amount",0)
-	
-		$AnimationTree.set("parameters/blend_attack_dir/blend_amount",1)
+	if action_i!=-1:
+		$AnimationTree.set("parameters/blend_motion_action/blend_amount",1)
+		for i in actions.size():
+			if i <= action_i:
+				$AnimationTree.set("parameters/"+str(i)+"blend_amount",1)
+			else:
+				$AnimationTree.set("parameters/"+str(i)+"blend_amount",0)
+	else:
+		$AnimationTree.set("parameters/blend_motion_action/blend_amount",0)
+		
 	if (velocity.y<BLEND_Y_DELTA and velocity.y>-BLEND_Y_DELTA):
 		$AnimationTree.set("parameters/blend_fall/blend_amount",0)
 		$AnimationTree.set("parameters/blend_jump/blend_amount",0)

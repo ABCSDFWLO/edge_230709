@@ -38,7 +38,7 @@ animation = &"move_right"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_s1euo"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1o1y2"]
-graph_offset = Vector2(-249.299, 126.823)
+graph_offset = Vector2(-384.299, 1.823)
 nodes/attack_left/node = SubResource("AnimationNodeAnimation_71v06")
 nodes/attack_left/position = Vector2(240, 380)
 nodes/attack_right/node = SubResource("AnimationNodeAnimation_pdov3")
@@ -690,7 +690,7 @@ parameters/shot_attack/internal_active = false
 parameters/shot_attack/request = 0
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 11.8792)
+position = Vector2(0, 13.0123)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -736,10 +736,13 @@ visible = false
 texture = ExtResource("3_1y0hn")
 
 [node name="Action0" type="Node2D" parent="."]
+visible = false
 scale = Vector2(1e-05, 1e-05)
 metadata/_edit_group_ = true
 
 [node name="Area2D" type="Area2D" parent="Action0"]
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Action0/Area2D"]
 shape = SubResource("RectangleShape2D_0akb8")

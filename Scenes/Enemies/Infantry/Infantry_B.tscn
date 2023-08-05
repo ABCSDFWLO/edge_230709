@@ -745,7 +745,7 @@ parameters/shot_attack/internal_active = false
 parameters/shot_attack/request = 0
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(-10, 4.9428)
+position = Vector2(-10, 1.7598)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -768,7 +768,7 @@ polygon = PackedVector2Array(40, 100, -40, 100, -40, -100, 40, -100)
 shape = SubResource("RectangleShape2D_hcllj")
 
 [node name="Foot_0" type="Node2D" parent="."]
-position = Vector2(-3.60246, 169.049)
+position = Vector2(67.7062, 169.929)
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_0"]
@@ -780,8 +780,8 @@ visible = false
 texture = ExtResource("3_d5jb5")
 
 [node name="Foot_1" type="Node2D" parent="."]
-position = Vector2(22.3135, 115.512)
-rotation = 0.485472
+position = Vector2(-49.1972, 126.21)
+rotation = 0.349042
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_1"]
