@@ -73,7 +73,7 @@ nodes/shot_attack/position = Vector2(580, 180)
 node_connections = [&"output", 0, &"shot_attack", &"blend_attack_dir", 0, &"attack_left", &"blend_attack_dir", 1, &"attack_right", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"move_left", &"blend_move_dir", 1, &"move_right", &"shot_attack", 0, &"blend_fall", &"shot_attack", 1, &"blend_attack_dir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcllj"]
-size = Vector2(100, 300)
+size = Vector2(150, 400)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0akb8"]
 size = Vector2(200, 100)
@@ -196,34 +196,22 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("../Action0/Area2D:monitoring")
-tracks/9/interp = 1
+tracks/9/path = NodePath("../Body/Shld_0:position")
+tracks/9/interp = 2
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.8, 2.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../Body/Shld_0:position")
-tracks/10/interp = 2
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(-80, 0), Vector2(-80, 0)]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("../Action0/Area2D:monitorable")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../Action0/Area2D:monitorable")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(0, 0.8, 2.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
@@ -344,34 +332,22 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("../Action0/Area2D:monitoring")
+tracks/9/path = NodePath("../Body/Shld_0:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.8, 2.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../Body/Shld_0:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(80, 0), Vector2(80, 0)]
 }
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("../Action0/Area2D:monitorable")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../Action0/Area2D:monitorable")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(0, 0.8, 2.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
@@ -715,8 +691,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8hkk"]
+size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j17ev"]
+size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyuw2"]
 size = Vector2(2000, 400)
@@ -745,7 +723,7 @@ parameters/shot_attack/internal_active = false
 parameters/shot_attack/request = 0
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(-10, 1.7598)
+position = Vector2(-10, 3.44385)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -758,17 +736,20 @@ polygon = PackedVector2Array(100, 100, -100, 100, -100, -100, 100, -100)
 
 [node name="Shld_0" type="Area2D" parent="Body"]
 position = Vector2(-80, 0)
-collision_layer = 8
+collision_layer = 2
+monitoring = false
+priority = 5
 
 [node name="Polygon2D0" type="Polygon2D" parent="Body/Shld_0"]
 color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(40, 100, -40, 100, -40, -100, 40, -100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Shld_0"]
+position = Vector2(0, 50)
 shape = SubResource("RectangleShape2D_hcllj")
 
 [node name="Foot_0" type="Node2D" parent="."]
-position = Vector2(67.7062, 169.929)
+position = Vector2(47.5253, 171.464)
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_0"]
@@ -780,8 +761,8 @@ visible = false
 texture = ExtResource("3_d5jb5")
 
 [node name="Foot_1" type="Node2D" parent="."]
-position = Vector2(-49.1972, 126.21)
-rotation = 0.349042
+position = Vector2(-27.1986, 115.273)
+rotation = 0.447562
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_1"]
@@ -798,7 +779,8 @@ scale = Vector2(1e-05, 1e-05)
 metadata/_edit_group_ = true
 
 [node name="Area2D" type="Area2D" parent="Action0"]
-monitoring = false
+collision_layer = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Action0/Area2D"]
 shape = SubResource("RectangleShape2D_0akb8")
@@ -888,7 +870,10 @@ scale_amount_min = 10.0
 scale_amount_max = 25.0
 color = Color(0.392157, 0, 0, 0.392157)
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="body_shape_entered" from="Action0/Area2D" to="." method="_on_area_2d_body_shape_entered"]
 [connection signal="body_shape_entered" from="Sensor_left" to="." method="_on_sensor_left_body_shape_entered"]
 [connection signal="body_shape_exited" from="Sensor_left" to="." method="_on_sensor_left_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_right" to="." method="_on_sensor_right_body_shape_entered"]
@@ -897,3 +882,4 @@ color = Color(0.392157, 0, 0, 0.392157)
 [connection signal="body_shape_exited" from="Sensor_action0_left" to="." method="_on_sensor_action_0_left_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_action0_right" to="." method="_on_sensor_action_0_right_body_shape_entered"]
 [connection signal="body_shape_exited" from="Sensor_action0_right" to="." method="_on_sensor_action_0_right_body_shape_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

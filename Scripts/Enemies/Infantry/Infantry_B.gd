@@ -9,9 +9,11 @@ const BLEND_Y_DELTA = 1500
 
 const ATTACKABLE_RANGE = 300
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+signal player_attacked()
 
-var particle_damaged : CPUParticles2D
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var is_invincible:=false
+
 var player : CharacterBody2D
 
 var senses = {
@@ -32,7 +34,7 @@ var actions = {
 
 func _ready():
 	player=get_node("/root/Node2D/Player")
-	particle_damaged=$CPUParticles2D
+	player_attacked.connect(player.get_damaged)
 
 func _process(_delta):
 	control()
@@ -115,3 +117,22 @@ func _on_sensor_action_0_right_body_shape_entered(body_rid, body, body_shape_ind
 func _on_sensor_action_0_right_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
 	if body==player:
 		senses["action0_right"]=false
+
+func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	if body==player:
+		player_attacked.emit()
+
+
+func get_damaged():
+	if not is_invincible:
+		$Timer.start()
+		self.modulate=Color(1,1,1,0.5)
+		$AnimationTree.set("parameters/shot_attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+		$CPUParticles2D.restart()
+		#hp--
+		#시간나면 후딜도 좀 추가할까
+		actions["action0"]=0
+		is_invincible=true
+func _on_timer_timeout():
+	self.modulate=Color(1,1,1,1)
+	is_invincible=false
