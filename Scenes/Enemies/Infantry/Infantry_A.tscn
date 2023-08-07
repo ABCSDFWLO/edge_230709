@@ -38,7 +38,6 @@ animation = &"move_right"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_s1euo"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1o1y2"]
-graph_offset = Vector2(-360.652, -54.1105)
 nodes/attack_left/node = SubResource("AnimationNodeAnimation_71v06")
 nodes/attack_left/position = Vector2(240, 380)
 nodes/attack_right/node = SubResource("AnimationNodeAnimation_pdov3")
@@ -67,13 +66,6 @@ nodes/output/position = Vector2(740, 180)
 nodes/shot_attack/node = SubResource("AnimationNodeOneShot_s1euo")
 nodes/shot_attack/position = Vector2(580, 180)
 node_connections = [&"output", 0, &"shot_attack", &"blend_attack_dir", 0, &"attack_left", &"blend_attack_dir", 1, &"attack_right", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"move_left", &"blend_move_dir", 1, &"move_right", &"shot_attack", 0, &"blend_fall", &"shot_attack", 1, &"blend_attack_dir"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0akb8"]
-size = Vector2(200, 100)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6sxxm"]
-radius = 100.0
-height = 290.0
 
 [sub_resource type="Animation" id="Animation_esaag"]
 resource_name = "attack_left"
@@ -181,10 +173,10 @@ tracks/8/path = NodePath("../Action0:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5, 1.3, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.5, 1.3, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0)]
+"values": [Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1e-05, 1e-05)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -193,10 +185,10 @@ tracks/9/path = NodePath("../Action0/Area2D:monitoring")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.4, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
+"times": PackedFloat32Array(0, 0.3, 0.4, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 2,
+"values": [false, false, true, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_8j16w"]
@@ -305,10 +297,10 @@ tracks/8/path = NodePath("../Action0:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5, 1.3, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.4, 0.5, 1.3, 1.4, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 0), Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0)]
+"values": [Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1e-05, 1e-05)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -317,10 +309,10 @@ tracks/9/path = NodePath("../Action0/Area2D:monitoring")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.4, 1.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
+"times": PackedFloat32Array(0, 0.3, 0.4, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [false, false, true, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_q4j18"]
@@ -636,10 +628,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8hkk"]
-size = Vector2(30, 30)
+size = Vector2(75, 75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j17ev"]
-size = Vector2(30, 30)
+size = Vector2(75, 75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyuw2"]
 size = Vector2(2000, 400)
@@ -647,10 +639,18 @@ size = Vector2(2000, 400)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kf6b"]
 size = Vector2(300, 200)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6sxxm"]
+radius = 100.0
+height = 290.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0akb8"]
+size = Vector2(200, 100)
+
 [node name="Infantry_A" type="CharacterBody2D"]
 position = Vector2(-6, -3)
 collision_layer = 2
 collision_mask = 16
+floor_constant_speed = true
 script = ExtResource("1_y4if6")
 metadata/_edit_group_ = true
 
@@ -667,74 +667,6 @@ parameters/shot_attack/active = false
 parameters/shot_attack/internal_active = false
 parameters/shot_attack/request = 0
 
-[node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 1.16563)
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Body"]
-visible = false
-texture = ExtResource("2_o8agy")
-
-[node name="Polygon2D0" type="Polygon2D" parent="Body"]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(100, 100, -100, 100, 0, -100)
-
-[node name="Atk_0" type="Area2D" parent="Body"]
-collision_layer = 2
-monitorable = false
-
-[node name="Polygon2D0" type="Polygon2D" parent="Body/Atk_0"]
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(30, -40, -30, -40, 0, -100)
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Body/Atk_0"]
-polygon = PackedVector2Array(-20, -40, 20, -40, 0, -80)
-
-[node name="Foot_0" type="Node2D" parent="."]
-position = Vector2(-80, 160)
-metadata/_edit_group_ = true
-
-[node name="Polygon2D0" type="Polygon2D" parent="Foot_0"]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(50, 25, -50, 25, 0, -25)
-
-[node name="Sprite2D" type="Sprite2D" parent="Foot_0"]
-visible = false
-texture = ExtResource("3_1y0hn")
-
-[node name="Foot_1" type="Node2D" parent="."]
-position = Vector2(80, 160)
-metadata/_edit_group_ = true
-
-[node name="Polygon2D0" type="Polygon2D" parent="Foot_1"]
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(50, 25, -50, 25, 0, -25)
-
-[node name="Sprite2D" type="Sprite2D" parent="Foot_1"]
-visible = false
-texture = ExtResource("3_1y0hn")
-
-[node name="Action0" type="Node2D" parent="."]
-scale = Vector2(1e-05, 1e-05)
-metadata/_edit_group_ = true
-
-[node name="Area2D" type="Area2D" parent="Action0"]
-collision_layer = 2
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Action0/Area2D"]
-shape = SubResource("RectangleShape2D_0akb8")
-debug_color = Color(1, 0, 0, 0.0784314)
-
-[node name="Polygon2D0" type="Polygon2D" parent="Action0"]
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-100, -50, 100, -50, 100, 50, -100, 50)
-
-[node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(0, 40)
-shape = SubResource("CapsuleShape2D_6sxxm")
-debug_color = Color(0, 0.6, 0.701961, 0.0784314)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Foot_0")
 reset_on_save = false
@@ -743,8 +675,26 @@ libraries = {
 "": SubResource("AnimationLibrary_xn8b6")
 }
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+lifetime = 1.3
+one_shot = true
+preprocess = 0.3
+speed_scale = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(0, -1)
+initial_velocity_max = 1000.0
+scale_amount_min = 30.0
+scale_amount_max = 50.0
+color = Color(0, 0, 0, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
 [node name="Sensor_left_floor" type="Area2D" parent="."]
-position = Vector2(-40, 250)
+position = Vector2(-75, 250)
 collision_layer = 4
 collision_mask = 16
 
@@ -753,7 +703,7 @@ shape = SubResource("RectangleShape2D_m8hkk")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right_floor" type="Area2D" parent="."]
-position = Vector2(40, 250)
+position = Vector2(75, 250)
 collision_layer = 4
 collision_mask = 16
 
@@ -803,25 +753,78 @@ position = Vector2(200, 0)
 shape = SubResource("RectangleShape2D_4kf6b")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-emitting = false
-amount = 20
-lifetime = 0.7
-one_shot = true
-emission_shape = 3
-emission_rect_extents = Vector2(1, 1)
-direction = Vector2(0, -1)
-initial_velocity_max = 1000.0
-scale_amount_min = 10.0
-scale_amount_max = 25.0
-color = Color(0.392157, 0, 0, 0.392157)
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 40)
+shape = SubResource("CapsuleShape2D_6sxxm")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="Body" type="Node2D" parent="."]
+position = Vector2(0, 0.730799)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+visible = false
+texture = ExtResource("2_o8agy")
+
+[node name="Polygon2D0" type="Polygon2D" parent="Body"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(100, 100, -100, 100, 0, -100)
+
+[node name="Atk_0" type="Area2D" parent="Body"]
+collision_layer = 2
+monitorable = false
+
+[node name="Polygon2D0" type="Polygon2D" parent="Body/Atk_0"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(30, -40, -30, -40, 0, -100)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Body/Atk_0"]
+polygon = PackedVector2Array(-20, -40, 20, -40, 0, -80)
+
+[node name="Foot_0" type="Node2D" parent="."]
+position = Vector2(-80, 160)
+metadata/_edit_group_ = true
+
+[node name="Polygon2D0" type="Polygon2D" parent="Foot_0"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(50, 25, -50, 25, 0, -25)
+
+[node name="Sprite2D" type="Sprite2D" parent="Foot_0"]
+visible = false
+texture = ExtResource("3_1y0hn")
+
+[node name="Foot_1" type="Node2D" parent="."]
+position = Vector2(80, 160)
+metadata/_edit_group_ = true
+
+[node name="Polygon2D0" type="Polygon2D" parent="Foot_1"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(50, 25, -50, 25, 0, -25)
+
+[node name="Sprite2D" type="Sprite2D" parent="Foot_1"]
+visible = false
+texture = ExtResource("3_1y0hn")
+
+[node name="Action0" type="Node2D" parent="."]
+visible = false
+scale = Vector2(1e-05, 1e-05)
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="Action0"]
+collision_layer = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Action0/Area2D"]
+shape = SubResource("RectangleShape2D_0akb8")
+debug_color = Color(1, 0, 0, 0.0784314)
+
+[node name="Polygon2D0" type="Polygon2D" parent="Action0"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(-100, -50, 100, -50, 100, 50, -100, 50)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
-[connection signal="body_shape_entered" from="Body/Atk_0" to="." method="_on_atk_0_body_shape_entered"]
-[connection signal="body_shape_entered" from="Action0/Area2D" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_shape_entered" from="Sensor_left" to="." method="_on_sensor_left_body_shape_entered"]
 [connection signal="body_shape_exited" from="Sensor_left" to="." method="_on_sensor_left_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_right" to="." method="_on_sensor_right_body_shape_entered"]
@@ -832,4 +835,5 @@ wait_time = 0.5
 [connection signal="body_shape_exited" from="Sensor_action0_left" to="." method="_on_sensor_action_0_left_body_shape_exited"]
 [connection signal="body_shape_entered" from="Sensor_action0_right" to="." method="_on_sensor_action_0_right_body_shape_entered"]
 [connection signal="body_shape_exited" from="Sensor_action0_right" to="." method="_on_sensor_action_0_right_body_shape_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_shape_entered" from="Body/Atk_0" to="." method="_on_atk_0_body_shape_entered"]
+[connection signal="body_shape_entered" from="Action0/Area2D" to="." method="_on_area_2d_body_shape_entered"]

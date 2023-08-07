@@ -120,18 +120,13 @@ func _on_timer_timeout():
 	is_invincible=false
 
 
-
-
-
-
 #freakin attack collision checks
-#foot0_action0_area
-func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+#action0_area
+func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index,extra_arg0):
 	if area.get_priority()>1:
 		$AnimationTree.set("parameters/"+action_playing+"/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
-		area_shape_entered.signalcaller.monitoring=false
 		action_playing="_"
 		is_action_playing=false
-#foot0_action0_body
+#action0_body
 func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	body.get_damaged()
