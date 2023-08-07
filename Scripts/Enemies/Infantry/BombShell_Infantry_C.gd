@@ -19,9 +19,10 @@ func _physics_process(delta):
 	pass
 
 func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	print_debug(a,position)
+	print_debug(a/PI*180,position)
 	sleeping=true
-	$AnimationPlayer.play("explode")
+	#$AnimationPlayer.play("explode")
+	queue_free()
 
 
 func _on_animation_player_animation_finished(anim_name):
