@@ -122,7 +122,7 @@ func _on_timer_timeout():
 
 #freakin attack collision checks
 #action0_area
-func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index,extra_arg0):
+func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_priority()>1:
 		$AnimationTree.set("parameters/"+action_playing+"/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 		action_playing="_"

@@ -42,7 +42,7 @@ animation = &"move_right"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_s1euo"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1o1y2"]
-graph_offset = Vector2(-338.9, 148.8)
+graph_offset = Vector2(-355.798, 63.3222)
 nodes/attack_left/node = SubResource("AnimationNodeAnimation_71v06")
 nodes/attack_left/position = Vector2(240, 380)
 nodes/attack_right/node = SubResource("AnimationNodeAnimation_pdov3")
@@ -697,7 +697,7 @@ size = Vector2(2000, 400)
 size = Vector2(500, 200)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hcllj"]
-size = Vector2(300, 500)
+size = Vector2(400, 500)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0akb8"]
 size = Vector2(200, 100)
@@ -809,7 +809,7 @@ shape = SubResource("RectangleShape2D_4kf6b")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(-10, 2.9988)
+position = Vector2(-10, 0.0152095)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -823,6 +823,7 @@ polygon = PackedVector2Array(100, 100, -100, 100, -100, -100, 100, -100)
 [node name="Shld_0" type="Area2D" parent="Body"]
 position = Vector2(-80, 0)
 collision_layer = 2
+collision_priority = 5.0
 monitoring = false
 priority = 5
 
@@ -831,11 +832,11 @@ color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(40, 100, -40, 100, -40, -100, 40, -100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Shld_0"]
-position = Vector2(0, 50)
+position = Vector2(-20, 50)
 shape = SubResource("RectangleShape2D_hcllj")
 
 [node name="Foot_0" type="Node2D" parent="."]
-position = Vector2(-46.7679, 164.466)
+position = Vector2(-79.8683, 160.02)
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_0"]
@@ -847,8 +848,8 @@ visible = false
 texture = ExtResource("3_d5jb5")
 
 [node name="Foot_1" type="Node2D" parent="."]
-position = Vector2(54.3565, 128.777)
-rotation = 0.51776
+position = Vector2(79.8911, 159.821)
+rotation = 0.0337094
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_1"]
