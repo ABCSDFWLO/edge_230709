@@ -38,6 +38,7 @@ animation = &"move_right"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_s1euo"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1o1y2"]
+graph_offset = Vector2(-435.882, -7.67677)
 nodes/attack_left/node = SubResource("AnimationNodeAnimation_71v06")
 nodes/attack_left/position = Vector2(240, 380)
 nodes/attack_right/node = SubResource("AnimationNodeAnimation_pdov3")
@@ -759,7 +760,7 @@ shape = SubResource("CapsuleShape2D_6sxxm")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 16.5952)
+position = Vector2(0, 8.08757)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]

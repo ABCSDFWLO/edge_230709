@@ -10,7 +10,7 @@ var player : CharacterBody2D
 
 
 func _ready():
-	player=get_node("/root/Node2D/Player")
+	pass#player=get_node("/root/Node2D/Player")
 
 func _input(event):
 	if event.is_action("action1"):
@@ -23,7 +23,8 @@ func _input(event):
 			angle=0
 	if event.is_action_pressed("action2"):
 		var tempbomb=bomb.instantiate()
-		tempbomb.fire(calc(player.position-self.position))
+		#tempbomb.fire(calc(player.position-self.position))
+		tempbomb.fire(calc($target.position))
 		add_child(tempbomb)
 
 
