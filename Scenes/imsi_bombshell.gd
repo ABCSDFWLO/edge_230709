@@ -3,6 +3,7 @@ extends Node2D
 var bomb=preload("res://Scenes/Enemies/Infantry/BombShell_Infantry_C.tscn")
 var angle=0
 var gravity=ProjectSettings.get_setting("physics/2d/default_gravity")
+const ACCURACY=100
 
 const V=8000.0
 func _input(event):
@@ -21,6 +22,32 @@ func _input(event):
 
 
 func calc(a:Vector2):
+	var g=gravity
+	var size:int=round(V*V*1.212/g/ACCURACY)
+	var y={}
+	var map=[]
+	for i in size:
+		var th=(PI/4)*(1+float(i)/size)
+		y[i]=(a.x*tan(th)-((g*a.x*a.x)/(2*V*V*cos(th)*cos(th))))
+		map.append(i)
+	map.sort_custom(func(a,b):return y[a]<y[b])
+	var s:int=0
+	var e:int=size-1
+	var m:int=0
+	while(s<=e):
+		m=(s+e)/2
+		if(e-s<=1):
+			print_debug(y)
+			print_debug(map[m]," ",y[map[m]])
+			var d0=abs(y[map[s]]+a.y)
+			var d1=abs(y[map[e]]+a.y)
+			return -(PI/4)*(1+float(map[s])/size) if d0<d1 else -(PI/4)*(1+float(map[e])/size)
+		elif (y[map[m]]<-a.y):
+			s=m
+		elif (-a.y<y[map[m]]):
+			e=m
+
+func calc0(a:Vector2):
 	var g=gravity
 	var w0=a.x
 	var th0=PI/2-asin(g*w0/(V*V))/2

@@ -89,6 +89,7 @@ escape={
 [physics]
 
 2d/default_gravity=9800.0
+2d/default_linear_damp=0.0
 
 [rendering]
 
