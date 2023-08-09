@@ -6,6 +6,12 @@ var gravity=ProjectSettings.get_setting("physics/2d/default_gravity")
 const ACCURACY=100
 
 const V=8000.0
+var player : CharacterBody2D
+
+
+func _ready():
+	player=get_node("/root/Node2D/Player")
+
 func _input(event):
 	if event.is_action("action1"):
 		var tempbomb=bomb.instantiate()
@@ -17,7 +23,7 @@ func _input(event):
 			angle=0
 	if event.is_action_pressed("action2"):
 		var tempbomb=bomb.instantiate()
-		tempbomb.fire(calc($target.position))
+		tempbomb.fire(calc(player.position-self.position))
 		add_child(tempbomb)
 
 

@@ -19,14 +19,10 @@ func _physics_process(delta):
 	pass
 
 func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	print_debug(a/PI*180,position)
 	var g=ProjectSettings.get_setting("physics/2d/default_gravity")
 	var V=INITIAL_VELOCITY
-	print_debug((position.x*tan(-a)-((g*position.x*position.x)/(2*V*V*cos(-a)*cos(-a)))))
 	sleeping=true
-	#$AnimationPlayer.play("explode")
-	queue_free()
-
+	$AnimationPlayer.play("explode")
 
 func _on_animation_player_animation_finished(anim_name):
 	queue_free()
