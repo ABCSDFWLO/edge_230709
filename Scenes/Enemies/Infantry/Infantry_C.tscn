@@ -1,17 +1,12 @@
-[gd_scene load_steps=30 format=3 uid="uid://bapu5ygd8o4na"]
+[gd_scene load_steps=28 format=3 uid="uid://bapu5ygd8o4na"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Infantry/Infantry_C.gd" id="1_c8jmj"]
 [ext_resource type="Texture2D" uid="uid://dgc1docnn6tr1" path="res://Img/enemy/mortar/body.png" id="2_c0jpj"]
 [ext_resource type="Texture2D" uid="uid://b8eio717dlc30" path="res://Img/player/player_body.png" id="3_3k2hk"]
 [ext_resource type="Texture2D" uid="uid://b3e18cs1e0bxi" path="res://Img/enemy/mortar/foot.png" id="3_m6thi"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_71v06"]
-animation = &"attack_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pdov3"]
-animation = &"attack_right"
-
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_7q55n"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yxyxa"]
+animation = &"launch"
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l7ruw"]
 
@@ -39,13 +34,9 @@ animation = &"move_right"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_s1euo"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1o1y2"]
-graph_offset = Vector2(-435.882, -7.67677)
-nodes/attack_left/node = SubResource("AnimationNodeAnimation_71v06")
-nodes/attack_left/position = Vector2(240, 380)
-nodes/attack_right/node = SubResource("AnimationNodeAnimation_pdov3")
-nodes/attack_right/position = Vector2(240, 500)
-nodes/blend_attack_dir/node = SubResource("AnimationNodeBlend2_7q55n")
-nodes/blend_attack_dir/position = Vector2(400, 260)
+graph_offset = Vector2(-83.8249, 126.261)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_yxyxa")
+nodes/Animation/position = Vector2(400, 320)
 nodes/blend_fall/node = SubResource("AnimationNodeBlend2_l7ruw")
 nodes/blend_fall/position = Vector2(240, 180)
 nodes/blend_jump/node = SubResource("AnimationNodeBlend2_s751v")
@@ -67,7 +58,7 @@ nodes/move_right/position = Vector2(-500, 300)
 nodes/output/position = Vector2(740, 180)
 nodes/shot_attack/node = SubResource("AnimationNodeOneShot_s1euo")
 nodes/shot_attack/position = Vector2(580, 180)
-node_connections = [&"output", 0, &"shot_attack", &"blend_attack_dir", 0, &"attack_left", &"blend_attack_dir", 1, &"attack_right", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"move_left", &"blend_move_dir", 1, &"move_right", &"shot_attack", 0, &"blend_fall", &"shot_attack", 1, &"blend_attack_dir"]
+node_connections = [&"output", 0, &"shot_attack", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"move_left", &"blend_move_dir", 1, &"move_right", &"shot_attack", 0, &"blend_fall", &"shot_attack", 1, &"Animation"]
 
 [sub_resource type="Animation" id="Animation_q4j18"]
 resource_name = "fall"
@@ -381,10 +372,10 @@ tracks/0/path = NodePath("../Body/bullet_loader:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(-0.1, 0, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(1, 1)]
+"values": [Vector2(1e-05, 1e-05), Vector2(0, 0), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -422,6 +413,20 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(80, 160), Vector2(80, 160), Vector2(80, 160), Vector2(80, 140), Vector2(80, 160)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"launch"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn8b6"]
 _data = {
@@ -440,7 +445,7 @@ size = Vector2(75, 75)
 size = Vector2(75, 75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyuw2"]
-size = Vector2(2000, 400)
+size = Vector2(2000, 2000)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6sxxm"]
 radius = 100.0
@@ -458,7 +463,6 @@ metadata/_edit_group_ = true
 tree_root = SubResource("AnimationNodeBlendTree_1o1y2")
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/blend_attack_dir/blend_amount = 0
 parameters/blend_fall/blend_amount = 0.0
 parameters/blend_jump/blend_amount = 0.0
 parameters/blend_move/blend_amount = 0.0
@@ -542,10 +546,11 @@ shape = SubResource("CapsuleShape2D_6sxxm")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 19.0218)
+position = Vector2(0, 10.3711)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
+rotation = 1.5708
 texture = ExtResource("2_c0jpj")
 
 [node name="Polygon2D0" type="Polygon2D" parent="Body"]

@@ -24,7 +24,7 @@ var senses = {
 }
 var actions = {
 	"x_dir"=0, # -1:left / 0:idle / 1:right
-	"action0"=0, # -1:left / 0:idle / 1:right
+	"action0"=0, # 0:idle / 1:launch
 }
 
 var bomb=preload("res://Scenes/Enemies/Infantry/BombShell_Infantry_C.tscn")
@@ -66,18 +66,28 @@ func animation():
 		$AnimationTree.set("parameters/blend_fall/blend_amount",0)
 
 func control():
-	if senses["action0"] and actions["action0"]==0 and is_on_floor():
-		actions["action0"]=1
-	elif senses["left"]:
-		actions["x_dir"]=-1 if senses["left_floor"] else 0
+	if senses["left"]:
+		if senses["right_floor"]:
+			actions["x_dir"]=1
+		else:
+			actions["action0"]=1
+			$AnimationTree.set("parameters/shot_attack/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	elif senses["right"]:
-		actions["x_dir"]=1 if senses["right_floor"] else 0
+		if senses["left_floor"]:
+			actions["x_dir"]=-1
+		else:
+			actions["action0"]=1
+			$AnimationTree.set("parameters/shot_attack/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	elif senses["action0"] and actions["action0"]==0 and is_on_floor():
+		actions["action0"]=1
+		$AnimationTree.set("parameters/shot_attack/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	elif actions["x_dir"]==-1 and is_on_floor() and (not senses["left_floor"] or is_on_wall()):
 		actions["x_dir"]=1
 	elif actions["x_dir"]==1 and is_on_floor() and (not senses["right_floor"] or is_on_wall()):
 		actions["x_dir"]=-1
 	elif actions["x_dir"]==0:
 		actions["x_dir"]=-1
+	$Body.rotation=calc(player.position-self.position)
 
 func calc(a:Vector2):
 	var g=gravity
@@ -104,7 +114,7 @@ func calc(a:Vector2):
 			e=m
 
 func _on_animation_tree_animation_finished(anim_name):
-	if anim_name=="attack_left" or anim_name=="attack_right":
+	if anim_name=="launch" :
 		actions["action0"]=0
 func _on_sensor_left_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body==player:
@@ -139,4 +149,8 @@ func _on_timer_timeout():
 	self.modulate=Color(1,1,1,1)
 	is_invincible=false
 
-
+func launch():
+	var tempbomb=bomb.instantiate()
+	#tempbomb.fire(calc(player.position-self.position))
+	tempbomb.fire($Body.rotation)
+	add_child(tempbomb)

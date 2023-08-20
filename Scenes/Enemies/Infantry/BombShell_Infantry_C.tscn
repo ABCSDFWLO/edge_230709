@@ -43,7 +43,7 @@ _data = {
 
 [node name="BombShell_Infantry_C" type="RigidBody2D"]
 collision_layer = 0
-collision_mask = 0
+collision_mask = 17
 continuous_cd = 1
 script = ExtResource("1_5g3u1")
 
@@ -68,5 +68,6 @@ libraries = {
 "": SubResource("AnimationLibrary_w8l6t")
 }
 
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
