@@ -809,7 +809,7 @@ shape = SubResource("RectangleShape2D_4kf6b")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(-10, 0.282648)
+position = Vector2(-10, 0.000115765)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -836,7 +836,7 @@ position = Vector2(-20, 50)
 shape = SubResource("RectangleShape2D_hcllj")
 
 [node name="Foot_0" type="Node2D" parent="."]
-position = Vector2(-77.4542, 160.375)
+position = Vector2(80.0461, 160.108)
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_0"]
@@ -848,8 +848,8 @@ visible = false
 texture = ExtResource("3_d5jb5")
 
 [node name="Foot_1" type="Node2D" parent="."]
-position = Vector2(77.9187, 156.721)
-rotation = 0.151212
+position = Vector2(-79.8657, 159.821)
+rotation = 0.00242633
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_1"]

@@ -88,6 +88,7 @@ escape={
 
 [physics]
 
+common/physics_ticks_per_second=120
 2d/default_gravity=9800.0
 2d/default_linear_damp=0.0
 

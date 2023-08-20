@@ -372,10 +372,10 @@ tracks/0/path = NodePath("../Body/bullet_loader:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(-0.1, 0, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(-0.1, 0, 1, 1.2, 1.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(0, 0), Vector2(1, 1)]
+"values": [Vector2(1e-05, 1e-05), Vector2(0, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -538,7 +538,7 @@ collision_layer = 4
 monitorable = false
 
 [node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Sensor_action0"]
-polygon = PackedVector2Array(0, -3200, -3300, -2500, -6600, 0, -8000, 3200, 8000, 3200, 6600, 0, 3300, -2500)
+polygon = PackedVector2Array(0, -3200, -3300, -2700, -6600, 0, -8000, 3200, 8000, 3200, 6600, 0, 3300, -2700)
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 40)
@@ -546,7 +546,7 @@ shape = SubResource("CapsuleShape2D_6sxxm")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 10.3711)
+position = Vector2(0, 0.687446)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]

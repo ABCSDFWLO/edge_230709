@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch0grh8waam27"]
+[gd_scene load_steps=9 format=3 uid="uid://ch0grh8waam27"]
 
 [ext_resource type="Script" path="res://Scripts/tests/target.gd" id="3_eapcg"]
+[ext_resource type="PackedScene" uid="uid://bapu5ygd8o4na" path="res://Scenes/Enemies/Infantry/Infantry_C.tscn" id="4_c6od6"]
+[ext_resource type="PackedScene" uid="uid://br2e7tt1vmjo2" path="res://Scenes/player.tscn" id="5_m5cgo"]
 [ext_resource type="Script" path="res://Scripts/tests/imsi_bombshell.gd" id="6_5y6jh"]
 [ext_resource type="Texture2D" uid="uid://bwu0d06n28rlv" path="res://Img/terrain/terrain_sample_tilemap.png" id="7_4a7yg"]
 
@@ -127,3 +129,9 @@ polygon = PackedVector2Array(1000, 0, 0, 0, 0, 10)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-6583, 989)
 zoom = Vector2(0.05, 0.05)
+
+[node name="Infantry_C" parent="." instance=ExtResource("4_c6od6")]
+position = Vector2(-8510, 5771)
+
+[node name="Player" parent="." instance=ExtResource("5_m5cgo")]
+position = Vector2(-5101, 6328)

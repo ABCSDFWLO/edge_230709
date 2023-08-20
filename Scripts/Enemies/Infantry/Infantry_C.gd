@@ -79,6 +79,7 @@ func control():
 			actions["action0"]=1
 			$AnimationTree.set("parameters/shot_attack/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	elif senses["action0"] and actions["action0"]==0 and is_on_floor():
+		$Body.rotation=calc(player.position-self.position)
 		actions["action0"]=1
 		$AnimationTree.set("parameters/shot_attack/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	elif actions["x_dir"]==-1 and is_on_floor() and (not senses["left_floor"] or is_on_wall()):
@@ -87,7 +88,6 @@ func control():
 		actions["x_dir"]=-1
 	elif actions["x_dir"]==0:
 		actions["x_dir"]=-1
-	$Body.rotation=calc(player.position-self.position)
 
 func calc(a:Vector2):
 	var g=gravity
