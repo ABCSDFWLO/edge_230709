@@ -33,7 +33,7 @@ var actions = {
 }
 
 func _ready():
-	player=get_node("/root/Node2D/Player")
+	player=get_node("..//Player")
 	player_attacked.connect(player.get_damaged)
 
 func _process(_delta):

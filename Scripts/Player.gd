@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 1500.0
 const JUMP_VELOCITY = -5000.0
 const EPSILON = 1
-const JUMP_ABILITY=3
+const JUMP_ABILITY=2
 
 const BLEND_X = 50
 const BLEND_Y = 2500

@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://crbku4q5pweou"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/Infantry/Infantry_A.gd" id="1_y4if6"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Infantry/o_Infantry_A.gd" id="1_y4if6"]
 [ext_resource type="Texture2D" uid="uid://bxsdyixbog6r" path="res://Img/enemy/triangle/triangle_body.png" id="2_o8agy"]
 [ext_resource type="Texture2D" uid="uid://n6kln4ltpkiw" path="res://Img/enemy/triangle/triangle_foot.png" id="3_1y0hn"]
 

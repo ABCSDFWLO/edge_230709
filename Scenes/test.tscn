@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ch0grh8waam27"]
 
-[ext_resource type="Script" path="res://Scenes/target.gd" id="3_eapcg"]
-[ext_resource type="Script" path="res://Scenes/imsi_bombshell.gd" id="6_5y6jh"]
+[ext_resource type="Script" path="res://Scripts/tests/target.gd" id="3_eapcg"]
+[ext_resource type="Script" path="res://Scripts/tests/imsi_bombshell.gd" id="6_5y6jh"]
 [ext_resource type="Texture2D" uid="uid://bwu0d06n28rlv" path="res://Img/terrain/terrain_sample_tilemap.png" id="7_4a7yg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_846xp"]
