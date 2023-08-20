@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://crbku4q5pweou"]
 
-[ext_resource type="Script" path="res://Scripts/Enemies/Infantry/o_Infantry_A.gd" id="1_y4if6"]
+[ext_resource type="Script" path="res://Scripts/Enemies/Infantry/Infantry_A.gd" id="1_ae2tl"]
 [ext_resource type="Texture2D" uid="uid://bxsdyixbog6r" path="res://Img/enemy/triangle/triangle_body.png" id="2_o8agy"]
 [ext_resource type="Texture2D" uid="uid://n6kln4ltpkiw" path="res://Img/enemy/triangle/triangle_foot.png" id="3_1y0hn"]
 
@@ -651,7 +651,7 @@ position = Vector2(-6, -3)
 collision_layer = 2
 collision_mask = 16
 floor_constant_speed = true
-script = ExtResource("1_y4if6")
+script = ExtResource("1_ae2tl")
 metadata/_edit_group_ = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -759,7 +759,7 @@ shape = SubResource("CapsuleShape2D_6sxxm")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 0.730799)
+position = Vector2(0, 0.0169146)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]

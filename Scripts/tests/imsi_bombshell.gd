@@ -35,7 +35,7 @@ func calc(a:Vector2):
 	var map=[]
 	for i in size:
 		var th=(PI/4)*(1+float(i)/size)
-		y[i]=(a.x*tan(th)-((g*a.x*a.x)/(2*V*V*cos(th)*cos(th))))
+		y[i]=(a.x*tan(th)-((g*a.x*a.x)/(2*V*V*cos(th)*cos(th)))) if a.x>0 else (-a.x*tan(th)-((g*a.x*a.x)/(2*V*V*cos(th)*cos(th))))
 		map.append(i)
 	map.sort_custom(func(a,b):return y[a]<y[b])
 	var s:int=0
@@ -48,7 +48,7 @@ func calc(a:Vector2):
 			print_debug(map[m]," ",y[map[m]])
 			var d0=abs(y[map[s]]+a.y)
 			var d1=abs(y[map[e]]+a.y)
-			return -(PI/4)*(1+float(map[s])/size) if d0<d1 else -(PI/4)*(1+float(map[e])/size)
+			return (-(PI/4)*(1+float(map[s])/size) if d0<d1 else -(PI/4)*(1+float(map[e])/size)) if a.x>0 else (-(PI/4)*(3-float(map[s])/size) if d0<d1 else -(PI/4)*(3-float(map[e])/size))
 		elif (y[map[m]]<-a.y):
 			s=m
 		elif (-a.y<y[map[m]]):

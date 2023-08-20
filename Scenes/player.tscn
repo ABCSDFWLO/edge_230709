@@ -860,7 +860,7 @@ parameters/blend_move_dir/blend_amount = 0.0
 
 [node name="Body" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(-10, 4.89654)
+position = Vector2(-10, 0.0320013)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -868,8 +868,7 @@ texture = ExtResource("2_u7yue")
 
 [node name="Foot_0" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(18.8518, 118.638)
-rotation = 0.467478
+position = Vector2(-79.726, 160.038)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Foot_0"]
@@ -885,7 +884,8 @@ shape = SubResource("RectangleShape2D_u8rcm")
 
 [node name="Foot_1" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(-13.7015, 169.621)
+position = Vector2(79.9919, 159.646)
+rotation = 0.0614298
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Foot_1"]
