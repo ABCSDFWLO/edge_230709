@@ -69,13 +69,13 @@ func control():
 	if senses["left"]:
 		if senses["right_floor"]:
 			actions["x_dir"]=1
-		else:
+		elif actions["action0"]==0 and is_on_floor():
 			actions["action0"]=1
 			$AnimationTree.set("parameters/shot_attack/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	elif senses["right"]:
 		if senses["left_floor"]:
 			actions["x_dir"]=-1
-		else:
+		elif actions["action0"]==0 and is_on_floor():
 			actions["action0"]=1
 			$AnimationTree.set("parameters/shot_attack/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 	elif senses["action0"] and actions["action0"]==0 and is_on_floor():
