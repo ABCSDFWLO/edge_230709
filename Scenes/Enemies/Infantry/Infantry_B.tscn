@@ -755,6 +755,7 @@ shape = SubResource("CapsuleShape2D_6sxxm")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_left_floor" type="Area2D" parent="."]
+visible = false
 position = Vector2(-75, 250)
 collision_layer = 4
 collision_mask = 16
@@ -764,6 +765,7 @@ shape = SubResource("RectangleShape2D_m8hkk")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right_floor" type="Area2D" parent="."]
+visible = false
 position = Vector2(75, 250)
 collision_layer = 4
 collision_mask = 16
@@ -773,6 +775,7 @@ shape = SubResource("RectangleShape2D_j17ev")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_left" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -782,6 +785,7 @@ shape = SubResource("RectangleShape2D_fyuw2")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -791,6 +795,7 @@ shape = SubResource("RectangleShape2D_fyuw2")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_action0_left" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -800,6 +805,7 @@ shape = SubResource("RectangleShape2D_4kf6b")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_action0_right" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -809,7 +815,7 @@ shape = SubResource("RectangleShape2D_4kf6b")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(-10, 0.000115765)
+position = Vector2(-10, 4.99794)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -836,7 +842,8 @@ position = Vector2(-20, 50)
 shape = SubResource("RectangleShape2D_hcllj")
 
 [node name="Foot_0" type="Node2D" parent="."]
-position = Vector2(80.0461, 160.108)
+position = Vector2(16.7187, 114.563)
+rotation = 0.480991
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_0"]
@@ -848,8 +855,7 @@ visible = false
 texture = ExtResource("3_d5jb5")
 
 [node name="Foot_1" type="Node2D" parent="."]
-position = Vector2(-79.8657, 159.821)
-rotation = 0.00242633
+position = Vector2(-13.5496, 176.186)
 metadata/_edit_group_ = true
 
 [node name="Polygon2D0" type="Polygon2D" parent="Foot_1"]

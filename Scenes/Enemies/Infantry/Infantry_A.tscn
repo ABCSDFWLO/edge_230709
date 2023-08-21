@@ -694,6 +694,7 @@ color = Color(0, 0, 0, 1)
 wait_time = 0.5
 
 [node name="Sensor_left_floor" type="Area2D" parent="."]
+visible = false
 position = Vector2(-75, 250)
 collision_layer = 4
 collision_mask = 16
@@ -703,6 +704,7 @@ shape = SubResource("RectangleShape2D_m8hkk")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right_floor" type="Area2D" parent="."]
+visible = false
 position = Vector2(75, 250)
 collision_layer = 4
 collision_mask = 16
@@ -712,6 +714,7 @@ shape = SubResource("RectangleShape2D_j17ev")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_left" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -721,6 +724,7 @@ shape = SubResource("RectangleShape2D_fyuw2")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_right" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -730,12 +734,14 @@ shape = SubResource("RectangleShape2D_fyuw2")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_upper" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Sensor_upper"]
 polygon = PackedVector2Array(-300, -1200, 300, -1200, 100, -100, -100, -100)
 
 [node name="Sensor_action0_left" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -745,6 +751,7 @@ shape = SubResource("RectangleShape2D_4kf6b")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Sensor_action0_right" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 monitorable = false
 
@@ -759,7 +766,7 @@ shape = SubResource("CapsuleShape2D_6sxxm")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="Body" type="Node2D" parent="."]
-position = Vector2(0, 19.9679)
+position = Vector2(0, 17.8779)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
