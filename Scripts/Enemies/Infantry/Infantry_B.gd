@@ -93,6 +93,11 @@ func control():
 func _on_animation_tree_animation_finished(anim_name):
 	if anim_name=="attack_left" or anim_name=="attack_right":
 		actions["action0"]=0
+		actions["x_dir"]=0
+	elif anim_name=="damaged":
+		is_invincible=false
+		actions["action0"]=0
+		actions["x_dir"]=0
 func _on_sensor_left_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body==player:
 		senses["left"]=true
@@ -125,14 +130,7 @@ func _on_area_2d_body_shape_entered(body_rid, body, body_shape_index, local_shap
 
 func get_damaged():
 	if not is_invincible:
-		$Timer.start()
-		self.modulate=Color(1,1,1,0.5)
+		$AnimationTree.set("parameters/damaged/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		$AnimationTree.set("parameters/shot_attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
-		$CPUParticles2D.restart()
-		#hp--
-		#시간나면 후딜도 좀 추가할까
-		actions["action0"]=0
 		is_invincible=true
-func _on_timer_timeout():
-	self.modulate=Color(1,1,1,1)
-	is_invincible=false
+		#hp--

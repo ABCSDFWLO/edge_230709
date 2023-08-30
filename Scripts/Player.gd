@@ -59,15 +59,16 @@ func _input(event):
 	elif event.is_action_pressed("down"):
 		latest_dir.y=1
 	
-	if event.is_action_pressed("action0"):
-		if action_slot[0] != -1:
-			action_playing=animation_map(action_slot[0])
-	elif event.is_action_pressed("action1"):
-		if action_slot[1] != -1:
-			action_playing=animation_map(action_slot[1])
-	elif event.is_action_pressed("action2"):
-		if action_slot[2] != -1:
-			action_playing=animation_map(action_slot[2])
+	if not is_invincible:
+		if event.is_action_pressed("action0"):
+			if action_slot[0] != -1:
+				action_playing=animation_map(action_slot[0])
+		elif event.is_action_pressed("action1"):
+			if action_slot[1] != -1:
+				action_playing=animation_map(action_slot[1])
+		elif event.is_action_pressed("action2"):
+			if action_slot[2] != -1:
+				action_playing=animation_map(action_slot[2])
 
 func animation():
 	$AnimationTree.set("parameters/blend_move_dir/blend_amount",clamp(velocity.x/BLEND_X,-0.5,0.5)+0.5)
@@ -100,30 +101,30 @@ func animation_map(anim_index:int)->String:
 			return "_"
 
 func _on_animation_tree_animation_finished(anim_name:String):
-	var n=anim_name.get_slice("action",1)
-	if actions.has(n):
+	if anim_name=="damaged":
 		action_playing="_"
-		is_action_playing=false
+		is_invincible=false
+	else:
+		var n=anim_name.get_slice("action",1)
+		if actions.has(n):
+			action_playing="_"
+			is_action_playing=false
 
 func get_damaged():
 	if not is_invincible:
-		$Timer.start()
-		self.modulate=Color(1,1,1,0.5)
 		#hp--
+		$AnimationTree.set("parameters/damaged/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		$AnimationTree.set("parameters/"+action_playing+"/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
-		action_playing="_"
+		action_playing="damaged"
 		is_action_playing=false
 		is_invincible=true
 
-func _on_timer_timeout():
-	self.modulate=Color(1,1,1,1)
-	is_invincible=false
 
 
 #freakin attack collision checks
 #action0_area
 func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	if area.get_priority()>1:
+	if area.get_priority()>1: #shields have priority of over 1 (usually, 5?)
 		$AnimationTree.set("parameters/"+action_playing+"/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 		action_playing="_"
 		is_action_playing=false
