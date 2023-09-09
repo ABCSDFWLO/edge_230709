@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://br2e7tt1vmjo2"]
+[gd_scene load_steps=38 format=3 uid="uid://br2e7tt1vmjo2"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_ukdey"]
 [ext_resource type="Texture2D" uid="uid://b8eio717dlc30" path="res://Img/player/player_body.png" id="2_u7yue"]
@@ -10,6 +10,10 @@ filters = ["../Body:position", "../Foot_1/Area2D:monitorable", "../Foot_1/Area2D
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_whkt1"]
 filters = ["../Body:position", "../Foot_1:position", "../Foot_1:rotation", ".:modulate", ".:position", ".:rotation", ".:scale", "Area2D:monitorable", "Area2D:monitoring"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_p41sx"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_cev6d"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5lruy"]
 animation = &"player_action0_left"
@@ -30,7 +34,8 @@ filters = ["../Body:position", "../Foot_1:position", "../Foot_1:rotation", ".:po
 filters = ["../Body:position", "../Foot_1:position", "../Foot_1:rotation", ".:position", ".:rotation"]
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_jesj4"]
-filters = ["../Body:position", "../Body:scale", "../Foot_1:position", "../Foot_1:rotation", "..:modulate", ".:position", ".:rotation"]
+filter_enabled = true
+filters = ["../Body:position", "../Body:scale", "..:modulate"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sed0y"]
 animation = &"player_fall"
@@ -44,6 +49,12 @@ animation = &"player_idle"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s41aw"]
 animation = &"player_jump"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nfphd"]
+animation = &"player_action1_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_euvh8"]
+animation = &"player_action1_right"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bu4sy"]
 animation = &"player_move_left"
 
@@ -51,11 +62,15 @@ animation = &"player_move_left"
 animation = &"player_move_right"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_lsxgb"]
-graph_offset = Vector2(-169.135, 71.4324)
+graph_offset = Vector2(-77.2537, -42)
 nodes/0_left/node = SubResource("AnimationNodeOneShot_dw12p")
 nodes/0_left/position = Vector2(560, 40)
 nodes/0_right/node = SubResource("AnimationNodeOneShot_whkt1")
 nodes/0_right/position = Vector2(700, 40)
+nodes/1_left/node = SubResource("AnimationNodeOneShot_p41sx")
+nodes/1_left/position = Vector2(840, 40)
+nodes/1_right/node = SubResource("AnimationNodeOneShot_cev6d")
+nodes/1_right/position = Vector2(1000, 40)
 nodes/action0_left/node = SubResource("AnimationNodeAnimation_5lruy")
 nodes/action0_left/position = Vector2(560, 260)
 nodes/action0_right/node = SubResource("AnimationNodeAnimation_5s2ht")
@@ -78,12 +93,16 @@ nodes/idle/node = SubResource("AnimationNodeAnimation_87g0t")
 nodes/idle/position = Vector2(-260, 40)
 nodes/jump/node = SubResource("AnimationNodeAnimation_s41aw")
 nodes/jump/position = Vector2(-80, 260)
-nodes/output/position = Vector2(1000, 40)
+nodes/output/position = Vector2(1320, 40)
+nodes/player_action1_left/node = SubResource("AnimationNodeAnimation_nfphd")
+nodes/player_action1_left/position = Vector2(840, 260)
+nodes/player_action1_right/node = SubResource("AnimationNodeAnimation_euvh8")
+nodes/player_action1_right/position = Vector2(1000, 380)
 nodes/player_move_left/node = SubResource("AnimationNodeAnimation_bu4sy")
 nodes/player_move_left/position = Vector2(-500, 180)
 nodes/player_move_right/node = SubResource("AnimationNodeAnimation_mdyv5")
 nodes/player_move_right/position = Vector2(-500, 300)
-node_connections = [&"output", 0, &"0_right", &"0_left", 0, &"damaged", &"0_left", 1, &"action0_left", &"0_right", 0, &"0_left", &"0_right", 1, &"action0_right", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"player_move_left", &"blend_move_dir", 1, &"player_move_right", &"damaged", 0, &"blend_fall", &"damaged", 1, &"get_damaged"]
+node_connections = [&"output", 0, &"1_right", &"0_left", 0, &"damaged", &"0_left", 1, &"action0_left", &"0_right", 0, &"0_left", &"0_right", 1, &"action0_right", &"blend_fall", 0, &"blend_jump", &"blend_fall", 1, &"fall", &"blend_jump", 0, &"blend_move", &"blend_jump", 1, &"jump", &"blend_move", 0, &"idle", &"blend_move", 1, &"blend_move_dir", &"blend_move_dir", 0, &"player_move_left", &"blend_move_dir", 1, &"player_move_right", &"damaged", 0, &"blend_fall", &"damaged", 1, &"get_damaged", &"1_left", 0, &"0_right", &"1_left", 1, &"player_action1_left", &"1_right", 0, &"1_left", &"1_right", 1, &"player_action1_right"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8rcm"]
 size = Vector2(100, 50)
@@ -97,142 +116,94 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("../Body:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-80, 160)]
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Foot_1:position")
+tracks/1/path = NodePath("..:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(80, 160)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../Body:position")
+tracks/2/path = NodePath(".:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Color(0, 0, 0, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".:rotation")
+tracks/3/path = NodePath("../Foot_1:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(0, 0, 0, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../Foot_1:rotation")
+tracks/4/path = NodePath("../Body:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("..:modulate")
+tracks/5/path = NodePath(".:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Vector2(1, 1)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath(".:modulate")
+tracks/6/path = NodePath("../Foot_1:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Vector2(1, 1)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../Foot_1:modulate")
+tracks/7/path = NodePath("../Body:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../Body:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath(".:scale")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("../Foot_1:scale")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("../Body:modulate")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -1021,12 +992,200 @@ tracks/8/keys = {
 "values": [Color(0, 0, 0, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_5gd8e"]
+resource_name = "player_action1_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(30, 30), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-80, 160), Vector2(-80, 160), Vector2(-80, 160)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Foot_1:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(80, 160), Vector2(60, 160), Vector2(80, 160)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.349066, 0.349066, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Foot_1:rotation")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.349066, 0.349066, 0.0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("..")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_invincible"
+}, {
+"args": [false],
+"method": &"set_invincible"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("..:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.478431)]
+}
+
+[sub_resource type="Animation" id="Animation_371t2"]
+resource_name = "player_action1_left"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Body:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-30, 30), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-80, 160), Vector2(-60, 160), Vector2(-80, 160)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Foot_1:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(80, 160), Vector2(80, 160), Vector2(80, 160)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.349066, -0.349066, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Foot_1:rotation")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.349066, -0.349066, 0.0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("..")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"set_invincible"
+}, {
+"args": [false],
+"method": &"set_invincible"
+}]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("..:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.478431)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xn8b6"]
 _data = {
 "RESET": SubResource("Animation_ygjhw"),
 "damaged": SubResource("Animation_odd5f"),
 "player_action0_left": SubResource("Animation_fq1qt"),
 "player_action0_right": SubResource("Animation_vre7h"),
+"player_action1_left": SubResource("Animation_371t2"),
+"player_action1_right": SubResource("Animation_5gd8e"),
 "player_fall": SubResource("Animation_q4j18"),
 "player_idle": SubResource("Animation_ea5oe"),
 "player_jump": SubResource("Animation_2t81t"),
@@ -1038,6 +1197,7 @@ _data = {
 collision_mask = 17
 floor_stop_on_slope = false
 floor_constant_speed = true
+floor_max_angle = 1.0472
 script = ExtResource("1_ukdey")
 metadata/_edit_group_ = true
 
@@ -1051,6 +1211,12 @@ parameters/0_left/request = 0
 parameters/0_right/active = false
 parameters/0_right/internal_active = false
 parameters/0_right/request = 0
+parameters/1_left/active = false
+parameters/1_left/internal_active = false
+parameters/1_left/request = 0
+parameters/1_right/active = false
+parameters/1_right/internal_active = false
+parameters/1_right/request = 0
 parameters/blend_fall/blend_amount = 0.0
 parameters/blend_jump/blend_amount = 0.0
 parameters/blend_move/blend_amount = 1.0
@@ -1061,7 +1227,7 @@ parameters/damaged/request = 0
 
 [node name="Body" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(-10, 4.42909)
+position = Vector2(-10, 0.374662)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
@@ -1069,8 +1235,8 @@ texture = ExtResource("2_u7yue")
 
 [node name="Foot_0" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(-41.5406, 120.189)
-rotation = 0.430657
+position = Vector2(-79.6316, 155.927)
+rotation = 0.0914629
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Foot_0"]
@@ -1086,7 +1252,7 @@ shape = SubResource("RectangleShape2D_u8rcm")
 
 [node name="Foot_1" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(22.4504, 166.738)
+position = Vector2(76.6484, 160.46)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Foot_1"]

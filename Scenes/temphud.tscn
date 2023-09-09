@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=3 uid="uid://ba8imt1cyem2"]
+
+[ext_resource type="Texture2D" uid="uid://dp5avxibgfvtq" path="res://Img/ui/lefttop.png" id="1_a2yrw"]
+[ext_resource type="Texture2D" uid="uid://b4gj6vgk4xwcs" path="res://Img/ui/bigcircle.png" id="2_4dajw"]
+[ext_resource type="Texture2D" uid="uid://bqpf5pgd4ix68" path="res://Img/ui/pause.png" id="5_10yo2"]
+[ext_resource type="Script" path="res://Scripts/ui/UI_pause.gd" id="6_50f3x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t31hf"]
+font_size = 50
+
+[node name="hud" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+offset_right = 153.0
+offset_bottom = 154.0
+texture = ExtResource("1_a2yrw")
+expand_mode = 5
+stretch_mode = 1
+
+[node name="hpbar" type="TextureRect" parent="Control/TextureRect"]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 146.0
+offset_bottom = 146.0
+rotation = 3.14159
+pivot_offset = Vector2(69, 69)
+texture = ExtResource("2_4dajw")
+expand_mode = 2
+stretch_mode = 1
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -86.0
+offset_bottom = 86.0
+grow_horizontal = 0
+icon = ExtResource("5_10yo2")
+icon_alignment = 1
+
+[node name="pause" type="Panel" parent="Control"]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_50f3x")
+
+[node name="Panel" type="Panel" parent="Control/pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/pause/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -31.0
+offset_right = 31.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_t31hf")
+
+[node name="Button" type="Button" parent="Control/pause/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 160.0
+grow_horizontal = 2
+text = "RESUME"
+
+[node name="Button2" type="Button" parent="Control/pause/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 200.0
+offset_right = 150.0
+offset_bottom = 260.0
+grow_horizontal = 2
+text = "EXIT"
+
+[connection signal="pressed" from="Control/Button" to="Control/Button" method="_on_pressed"]
+[connection signal="pressed" from="Control/Button" to="Control/pause" method="_on_pause_button_pressed"]
+[connection signal="pressed" from="Control/pause/Panel/Button" to="Control/Button" method="_on_button_pressed"]
+[connection signal="pressed" from="Control/pause/Panel/Button" to="Control/pause" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Control/pause/Panel/Button2" to="Control/pause" method="exit"]

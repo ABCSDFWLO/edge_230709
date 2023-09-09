@@ -5,6 +5,7 @@ const SPEED = 1500.0
 const JUMP_VELOCITY = -5000.0
 const EPSILON = 1
 const JUMP_ABILITY=2
+const DASH_SPEED=5000.0
 
 const BLEND_X = 50
 const BLEND_Y = 2500
@@ -15,15 +16,20 @@ var jumped=0
 var latest_dir:Vector2i
 var is_invincible:=false
 
-var action_slot=[
-	0,-1,-1
-]
+var action_slot=[0,1,-1]
 var action_playing:String="_"
 var is_action_playing:bool=false
 var actions:Array=[
 	"0_left",
-	"0_right"
+	"0_right",
+	"1_left",
+	"1_right"
 ]
+
+const HP_MAX=10
+var hp=HP_MAX
+
+signal hp_changed(m,h)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -41,13 +47,19 @@ func _physics_process(delta):
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
+	elif action_playing=="1_left":
+		velocity.x=-DASH_SPEED
+	elif action_playing=="1_right":
+		velocity.x=DASH_SPEED
 	else:
-		velocity.x=move_toward(velocity.x,0,SPEED)
+		velocity.x=move_toward(velocity.x,0,SPEED*7)
 	move_and_slide()
 
 func _process(_delta):
 	#print_debug(action_playing,is_action_playing)
 	animation()
+	if (self.position.y>5000):
+		get_tree().change_scene_to_file("res://Scenes/gameover.tscn")
 
 func _input(event):
 	if event.is_action_pressed("left"):
@@ -97,6 +109,11 @@ func animation_map(anim_index:int)->String:
 					return "0_right"
 			else:
 				return "_"
+		1:
+			if (latest_dir.x<0):
+				return "1_left"
+			else:
+				return "1_right"
 		_:
 			return "_"
 
@@ -109,17 +126,23 @@ func _on_animation_tree_animation_finished(anim_name:String):
 		if actions.has(n):
 			action_playing="_"
 			is_action_playing=false
+		else:
+			print_debug("animation played doesn't exist, check animation's name")
 
 func get_damaged():
-	if not is_invincible:
-		#hp--
+	if not is_invincible:	
+		hp-=1
+		hp_changed.emit(HP_MAX,hp)
+		if (hp<=0):
+			get_tree().change_scene_to_file("res://Scenes/gameover.tscn")
 		$AnimationTree.set("parameters/damaged/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		$AnimationTree.set("parameters/"+action_playing+"/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 		action_playing="damaged"
 		is_action_playing=false
 		is_invincible=true
 
-
+func set_invincible(b:bool):
+	is_invincible=b
 
 #freakin attack collision checks
 #action0_area

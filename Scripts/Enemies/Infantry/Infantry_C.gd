@@ -8,11 +8,15 @@ const BLEND_Y = 2500
 const BLEND_Y_DELTA = 1500
 
 signal player_attacked()
+signal im_dead(x,y)
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_invincible:=false
 
 var player : CharacterBody2D
+
+const HP_MAX=5
+var hp=HP_MAX
 
 var senses = {
 	"left"=false,
@@ -145,7 +149,14 @@ func get_damaged():
 		$AnimationTree.set("parameters/damaged/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		$AnimationTree.set("parameters/shot_attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 		is_invincible=true
-		#hp--
+		hp-=1
+		if hp<=0:
+			var p=preload("res://Scenes/mob_dead_particle.tscn")
+			var tmpp=p.instantiate()
+			get_parent().add_child(tmpp)
+			tmpp.position=position
+			tmpp.emitting=true
+			queue_free()
 
 func launch():
 	var tempbomb=bomb.instantiate()

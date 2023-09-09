@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3n64p2sfil4c"]
+
+[ext_resource type="Script" path="res://Scripts/Title.gd" id="1_dohr2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_amfqm"]
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0nvgj"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[node name="gameover" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -36.0
+offset_right = 132.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game over"
+label_settings = SubResource("LabelSettings_amfqm")
+
+[node name="Control2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = 19.0
+offset_right = 135.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "press attack key to restart"
+label_settings = SubResource("LabelSettings_0nvgj")
+script = ExtResource("1_dohr2")

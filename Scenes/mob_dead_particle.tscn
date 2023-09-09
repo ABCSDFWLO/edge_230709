@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://d31bf61px21j5"]
+
+[ext_resource type="Script" path="res://Scripts/mob_dead_particle.gd" id="1_ekyfv"]
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+emitting = false
+amount = 30
+lifetime = 1.3
+one_shot = true
+speed_scale = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 1000.0
+linear_accel_min = -1.0
+scale_amount_min = 30.0
+scale_amount_max = 50.0
+script = ExtResource("1_ekyfv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.3
+one_shot = true
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

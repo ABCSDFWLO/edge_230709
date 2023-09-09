@@ -94,7 +94,6 @@ escape={
 [physics]
 
 common/physics_ticks_per_second=120
-common/max_physics_steps_per_frame=1
 2d/default_gravity=9800.0
 2d/default_linear_damp=0.0
 2d/solver/solver_iterations=1
